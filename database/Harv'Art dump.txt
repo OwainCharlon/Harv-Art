@@ -1,0 +1,48 @@
+
+CREATE DATABASE HarvArt;
+
+USE HarvArt;
+
+create table user
+(
+id Integer Not Null auto_increment,
+username Varchar(30) Not Null,
+password Varchar(30) Not Null,
+email Varchar(50) Not Null,
+constraint user_pk primary key(id)
+)
+;
+
+create table favorite
+(
+id Integer Not Null auto_increment,
+masterpiece_id Integer Not Null,
+date Date Not Null,
+user_id Integer Not Null,
+constraint favorite_pk primary key(id),
+constraint favorite_fk foreign key(user_id)
+references user(id)
+);
+
+create table history
+(
+id Integer Not Null auto_increment,
+masterpiece_id Integer Not Null,
+date Date Not Null,
+user_id Integer Not Null,
+constraint history_pk primary key(id),
+constraint history_fk foreign key(user_id)
+references user(id)
+);
+
+create table comment
+(
+id Integer Not Null auto_increment,
+content Text Not Null,
+masterpiece_id Integer Not Null,
+date Date Not Null,
+user_id Integer Not Null,
+constraint comment_pk primary key(id),
+constraint comment_fk foreign key(user_id)
+references user(id)
+);
