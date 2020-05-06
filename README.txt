@@ -1,4 +1,5 @@
 Installer flask: pip install flask
+- wheel 0.34.2
 - flask 1.1.1
 - jinja2 2.10.1
 - flask-sqlalchemy 2.4.1
