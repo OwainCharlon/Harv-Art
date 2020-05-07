@@ -27,32 +27,59 @@
     font-family: 'Permanent Marker', cursive;
 }
 
-.containerDaily {
-    display: block;
-    height: 500px;
-    padding-left: 5%;
-    padding-right: 5%;
-}
-
 .dailyTitle {
     display: flex;
     font-size: 2.5em;
     justify-content: center;
     margin-top: 150px;
-}
-
-.daily {
-    display: grid;
+    margin-bottom: 100px;
 }
 
 .dailyImg {
-    display: flex;
-    grid-column: 1;
-    height: 100%;
+    float: left;
+    height: 500px;
+    width: 40%;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 5%;
+    margin-bottom: 80px;
+    position: relative;
+}
+
+.like {
+    position: absolute;
+    right: 5%;
+    bottom: 5%;
+    height: 7%;
+    width: 7%;
+}
+
+.notLiked {
+    background-image: url("../img/notLiked.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.liked {
+    background-image: url("../img/liked.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.like:hover {
+    cursor: pointer;
 }
 
 .dailyDesc {
     display: flex;
-    grid-column: 2;
-    height: 100%;
+    float: right;
+    height: 500px;
+    width: 40%;
+    margin-right: 5%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 80px;
 }

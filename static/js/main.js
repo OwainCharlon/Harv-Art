@@ -5,8 +5,12 @@ var queryString = $.param({
     size: "20"
 });
 
-// FETCH + CARROUSSEL
+function toggleLike() {
+    $(".like").toggleClass("liked");
+    $(".like").toggleClass("notLiked");
+}
 
+// FETCH + CARROUSSEL
 let data;
 var images = new Array();
 var indexCar = 0;
@@ -27,7 +31,9 @@ $.getJSON(apiEndpointBaseURL + "?" + queryString, function(data) {
     }
     $(document).ready(function() {
         console.log(data);
-        while (typeof data.records[img1].images[0] === 'undefined' || typeof data.records[img1].images[0] === 'undefined') { img1++; }
+
+        // Tableau pour carrousel
+        while (typeof data.records[img1].images[0] === 'undefined') { img1++; }
         images.push("url(\"" + data.records[img1].images[0].baseimageurl);
         img2 = img1 + 1;
         while (verifDifImg(img1, img2) === 0 || typeof data.records[img2].images[0] === 'undefined') { img2++; }
@@ -43,6 +49,19 @@ $.getJSON(apiEndpointBaseURL + "?" + queryString, function(data) {
         images.push("url(\"" + data.records[img5].images[0].baseimageurl);
         $('.carrousel').css("background-image", "url(\"" + data.records[img5].images[0].baseimageurl + "\"\)");
         $('.carrousel').fadeOut(2500);
+        // Tableau pour Daily Image
+        var randomImage = Math.floor(Math.random() * 20);
+        while (typeof data.records[randomImage].images[0] === 'undefined' && typeof data.records[randomImage].labeltext === 'undefined') {
+            randomImage++;
+            if (randomImage > 20) { randomImage = 0; }
+        }
+        var randomImgUrl = "url(\"" + data.records[randomImage].images[0].baseimageurl + "\"\)";
+        var randomImgText = data.records[randomImage].labeltext;
+        if (randomImgText == null) {
+            randomImgText = "Désolé aucune description n'est renseignée pour cette oeuvre, nous comptons sur la créativité impressionnante de nos internautes pour vous inventer une histoire. Merci <3";
+        }
+        $('.dailyImg').css("background-image", randomImgUrl);
+        $('.dailyDesc p').html(randomImgText);
     });
 });
 
