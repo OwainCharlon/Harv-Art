@@ -20,6 +20,11 @@ def homepage():
 def signin():
     return render_template("signin.html")
 
+@app.route("/search")
+def search():
+    return render_template("search.html")
+
+
 @app.route("/signup", methods=["POST", "GET"])
 def signup():
     if request.method == "POST":
@@ -33,6 +38,9 @@ def signup():
         return redirect(url_for("/signin"))
     else:
         return render_template("signup.html")
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
