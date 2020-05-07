@@ -12,7 +12,7 @@ class BaseConfig(object):
     'port': '3308',
     }
     
-    SQLALCHEMY_DATABASE_URI = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % MYSQL
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % MYSQL
      
 class DevelopmentConfig(BaseConfig):
 	DEBUG = True

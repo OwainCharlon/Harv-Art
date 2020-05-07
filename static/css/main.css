@@ -1,3 +1,8 @@
+body {
+    background: linear-gradient(to right, #0750af, #5490df, #4486dd);
+    z-index: -1;
+}
+
 .containerCarrousel {
     display: flex;
     width: 100%;
@@ -24,7 +29,8 @@
 
 .mainTitle h1 {
     transform: scale(3);
-    font-family: 'Permanent Marker', cursive;
+    font-family: "Permanent Marker", cursive;
+    color: white;
 }
 
 .dailyTitle {
