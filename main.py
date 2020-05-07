@@ -23,14 +23,14 @@ def signin():
 @app.route("/signup", methods=["POST", "GET"])
 def signup():
     if request.method == "POST":
-        username = request.form["inputPseudo"]
-        password = request.form["inputPassword"]
         email = request.form["inputEmail"]
+        username = request.form["inputUsername"]
+        password = request.form["inputPassword"]
         
         usr = User(username, password, email)
         db.session.add(usr)
         db.session.commit() #Use everytime you make a change into your db
-        return redirect(url_for("/signin"))
+        return redirect(url_for("signin"))
     else:
         return render_template("signup.html")
 
