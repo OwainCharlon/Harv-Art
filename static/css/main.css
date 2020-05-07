@@ -26,3 +26,33 @@
     transform: scale(3);
     font-family: 'Permanent Marker', cursive;
 }
+
+.containerDaily {
+    display: block;
+    height: 500px;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.dailyTitle {
+    display: flex;
+    font-size: 2.5em;
+    justify-content: center;
+    margin-top: 150px;
+}
+
+.daily {
+    display: grid;
+}
+
+.dailyImg {
+    display: flex;
+    grid-column: 1;
+    height: 100%;
+}
+
+.dailyDesc {
+    display: flex;
+    grid-column: 2;
+    height: 100%;
+}
