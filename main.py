@@ -1,7 +1,7 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash
 from flask_sqlalchemy import SQLAlchemy
 
-import models
+from models import *
 import config
 
 app = Flask(__name__)
@@ -15,6 +15,24 @@ with app.app_context():
 def homepage():
     return render_template("index.html")
 
+
+@app.route("/signin")
+def signin():
+    return render_template("signin.html")
+
+@app.route("/signup", methods=["POST", "GET"])
+def signup():
+    if request.method == "POST":
+        username = request.form["inputPseudo"]
+        password = request.form["inputPassword"]
+        email = request.form["inputEmail"]
+        
+        usr = User(username, password, email)
+        db.session.add(usr)
+        db.session.commit() #Use everytime you make a change into your db
+        return redirect(url_for("/signin"))
+    else:
+        return render_template("signup.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
