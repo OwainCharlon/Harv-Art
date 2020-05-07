@@ -13,7 +13,7 @@ with app.app_context():
 
 @app.route("/")
 def homepage():
-    return "hello this is the homepage."
+    return render_template("index.html")
 
 
 if __name__ == "__main__":

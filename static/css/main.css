@@ -1,0 +1,28 @@
+.containerCarrousel {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 60px;
+}
+
+.carrousel {
+    display: flex;
+    height: 100%;
+    width: 70%;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.mainTitle {
+    display: flex;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.mainTitle h1 {
+    transform: scale(3);
+    font-family: 'Permanent Marker', cursive;
+}
