@@ -25,22 +25,16 @@
         </div>
         <div class="containerDaily">
             <h2 class="dailyTitle">L'image du jour (la poésie Owainienne)</h2>
-            <div class="daily">
-                <div class="dailyImg">
-
-                </div>
-                <div class="dailyDesc">
-
-                </div>
+            <div class="dailyImg">
+                <div class="like notLiked" onclick="toggleLike()"></div>
+            </div>
+            <div class="dailyDesc">
+                <p></p>
             </div>
         </div>
-
-        <section class="search-filter">
-
-            < </section>
-        </section>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 
 </html>
