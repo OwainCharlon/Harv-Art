@@ -37,15 +37,15 @@ def signup():
         password = request.form["inputPassword"]
         
         if db.session.query(User).filter(User.username==username).first() or db.session.query(User).filter(User.email==email).first():
-            return jsonify('user already exists')
+            flash(f"This username or email adress is already used.", "info") #message must be display in the render
         
         else:
             db.session.add(User(username, sha256_crypt.encrypt(password), email))
             db.session.commit() #Use everytime you make a change into your db.
+            flash(f"Account created with success.", "info")
             return redirect(url_for("signin"))
         
-    else:
-        return render_template("signup.html")
+    return render_template("signup.html")
 
 
 @app.route("/signin", methods=["POST", "GET"])
@@ -58,16 +58,34 @@ def signin():
         usr = db.session.query(User).filter(User.email==email).first()
         
         if usr and sha256_crypt.verify(password, usr.password):
-            return jsonify({'message': 'Password is correct'}) 
-        
+            session["userId"] = usr.id
+            return redirect(url_for("homepage"))
         else:
-            return jsonify({'error': 'User or password are incorrect'})
+            flash(f"Password or email adress are incorrect.", "info")
 
-    else:
-        return render_template("signin.html")
-
+    return render_template("signin.html")
 
 
+@app.route("/addFavorite/<masterpieceId>")
+def addFavorite(masterpieceId):
+    db.session.add(Favorite(masterpieceId, session["userId"]))
+    db.session.commit()
+    
+    return jsonify("Added to your favorits.")
+
+@app.route("/addHistory/<masterpieceId>")
+def addHistory(masterpieceId):
+    db.session.add(History(masterpieceId, datetime.datetime.today().strftime('%Y-%m-%d'), session["userId"]))
+    db.session.commit()
+    
+    return jsonify("Added to your history.")
+
+@app.route("/addComment/<content>/<masterpieceId>")
+def addComment(content,masterpieceId):
+    db.session.add(Comment(content, masterpieceId, datetime.datetime.today().strftime('%Y-%m-%d'), session["userId"]))
+    db.session.commit()
+    
+    return jsonify("Comment well created.")
 
 if __name__ == "__main__":
     app.run(debug=True)

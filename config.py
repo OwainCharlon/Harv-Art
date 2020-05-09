@@ -1,5 +1,5 @@
 class BaseConfig(object):
-    #SECRET_KEY = os.environ.get('SECRET_KEY') or 'abcdef123456'
+    SECRET_KEY = 'abcdef123456'
     DEBUG = False
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
