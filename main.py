@@ -23,7 +23,7 @@ def homepage():
 def search():
     return render_template("search.html")
 
-@app.route("/favoris")
+@app.route("/favorites")
 def favorites():
     return render_template("favorites.html")
 
