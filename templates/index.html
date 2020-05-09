@@ -9,16 +9,36 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Favoris</a>
+              </li>
+              <li class="nav-item">
+                <a class='nav-link signIn' href="{{ url_for('signin') }}">Connectes toi avec ton doigt</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+    </header>
 <body>
-    <section class="nav">
-        <a class='signIn' href="{{ url_for('signin') }}">Connectes toi avec ton doigt</a>
-    </section>
 
-    <section class="main">
-        <div class="mainTitle">
-            <h1>Harv'Art</h1>
+
+
+    <section class="main mt-5 mb-5">
+        <div class="mainTitle mt-5">
+            <h1 class>Harv'Art</h1>
         </div>
         <div class="containerCarrousel">
             <div class="carrousel"></div>

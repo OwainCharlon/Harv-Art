@@ -23,6 +23,10 @@ def homepage():
 def search():
     return render_template("search.html")
 
+@app.route("/favoris")
+def favorites():
+    return render_template("favorites.html")
+
 
 @app.route("/signup", methods=["POST", "GET"])
 def signup():
