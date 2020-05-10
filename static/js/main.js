@@ -80,16 +80,16 @@ carrouStyle();
 
 // RESIZE FUNCTION
 
-var headerHeight;
-var screenHeight;
+// var headerHeight;
+// var screenHeight;
 
-function resize() {
-    screenHeight = $(window).innerHeight();
-    headerHeight = $('.nav').innerHeight() + $('.mainTitle').innerHeight() + 120;
-    valueHero = screenHeight - headerHeight;
-    $('.containerCarrousel').css('height', valueHero);
-}
+// function resize() {
+//     screenHeight = $(window).innerHeight();
+//     headerHeight = $('.nav').innerHeight() + $('.mainTitle').innerHeight() + 120;
+//     valueHero = screenHeight - headerHeight;
+//     $('.containerCarrousel').css('height', valueHero);
+// }
 
-resize();
+// resize();
 
-$(window).resize(resize);
+// $(window).resize(resize);
