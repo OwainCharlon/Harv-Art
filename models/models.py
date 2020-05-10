@@ -21,10 +21,12 @@ class Favorite(db.Model):
     __tablename__ = "Favorite"
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     masterpiece_id = db.Column(db.Integer, nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('User.id', ondelete='CASCADE'), nullable=False)
     
-    def __init__(self, masterpiece_id, user_id):
+    def __init__(self, masterpiece_id, date, user_id):
         self.masterpiece_id = masterpiece_id
+        self.date = date
         self.user_id = user_id
         
 

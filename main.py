@@ -72,7 +72,7 @@ def signin():
 
 @app.route("/addFavorite/<masterpieceId>")
 def addFavorite(masterpieceId):
-    db.session.add(Favorite(masterpieceId, session["userId"]))
+    db.session.add(Favorite(masterpieceId, datetime.datetime.today().strftime('%Y-%m-%d'), session["userId"]))
     db.session.commit()
     
     return jsonify("Added to your favorits.")
@@ -104,7 +104,18 @@ def admin():
 @app.route("/deleteContent/<contentType>/<contentId>")
 def deleteContent(contentType, contentId):
     
-    return jsonify("Hello World")
+    requests = {
+            1: "db.session.query(User).filter(User.id=={}).delete()",
+            2: "db.session.query(Favorite).filter(Favorite.id=={}).delete()",
+            3: "db.session.query(History).filter(History.id=={}).delete()",
+            4: "db.session.query(Comment).filter(Comment.id=={}).delete()",
+        }
+        
+    eval(requests[int(contentType)].format(contentId))
+    
+    db.session.commit()
+
+    return jsonify("Content well updated.")
     
 if __name__ == "__main__":
     app.run(debug=True)
