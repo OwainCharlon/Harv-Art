@@ -21,6 +21,7 @@ def homepage():
 
 @app.route("/search")
 def search():
+    
     return render_template("search.html")
 
 @app.route("/favorites")
