@@ -38,8 +38,8 @@ references user(id)
 create table comment
 (
 id Integer Not Null auto_increment,
-content Text Not Null,
 masterpiece_id Integer Not Null,
+content Text Not Null,
 date Date Not Null,
 user_id Integer Not Null,
 constraint comment_pk primary key(id),
