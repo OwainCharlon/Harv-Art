@@ -1,11 +1,8 @@
-body {
-    background: linear-gradient(to right, #0750af, #5490df, #4486dd);
-}
 
 .title {
     margin-top :100px;
     font-family: "Permanent Marker", cursive;
     font-size: 70px;
-    color: white;
+    color: black;
 
 }

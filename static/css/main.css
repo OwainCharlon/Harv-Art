@@ -28,14 +28,12 @@ body {
     align-items: center;
     margin-bottom: 40px;
 }
-.main{
 
-}
 .mainTitle h1 {
  margin-top: 100px;
     transform: scale(3);
     font-family: "Permanent Marker", cursive;
-    color: white;
+    color: black;
 }
 
 .dailyTitle {
