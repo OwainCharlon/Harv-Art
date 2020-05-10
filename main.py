@@ -24,6 +24,7 @@ def search():
     
     return render_template("search.html")
 
+
 @app.route("/favorites")
 def favorites():
     favorites = db.session.query(Favorite).filter(User.id==session["userId"]).all()
@@ -76,12 +77,14 @@ def addFavorite(masterpieceId):
     
     return jsonify("Added to your favorits.")
 
+
 @app.route("/addHistory/<masterpieceId>")
 def addHistory(masterpieceId):
     db.session.add(History(masterpieceId, datetime.datetime.today().strftime('%Y-%m-%d'), session["userId"]))
     db.session.commit()
     
     return jsonify("Added to your history.")
+
 
 @app.route("/addComment/<content>/<masterpieceId>")
 def addComment(content,masterpieceId):
@@ -90,6 +93,19 @@ def addComment(content,masterpieceId):
     
     return jsonify("Comment well created.")
 
+@app.route("/admin")
+def admin():
+    
+    users = db.session.query(User).all()
+    comments = db.session.query(Comments).all()
+    
+    return render_template("admin.html", users=users, comments=comments)
+
+@app.route("/deleteContent/<contentType>/<contentId>")
+def deleteContent(contentType, contentId):
+    
+    return jsonify("Hello World")
+    
 if __name__ == "__main__":
     app.run(debug=True)
     db.create_all() #DB création with ORM and models.
