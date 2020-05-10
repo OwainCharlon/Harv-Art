@@ -3,15 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Favoris</title>
-    <link href="{{ url_for('static', filename='css/fav.css') }}" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harv'Art</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,600,700" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,11 +36,7 @@
     </nav>
 </header>
 
-<body>
-    <div class="container text-center mt-4">
-        <h1 class="title">Favoris</h1>
-
-    </div>
+{% block content %} {% endblock %}
 </body>
 
 </html>
