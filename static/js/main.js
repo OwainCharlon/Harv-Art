@@ -97,3 +97,15 @@ function resize() {
 resize();
 
 $(window).resize(resize);
+
+// Sign in en pop up
+
+function signIn() {
+    $('.overlay').css('display', 'block');
+    $('.signInSection').css('display', 'flex');
+}
+
+function closeSignIn() {
+    $('.overlay').css('display', 'none');
+    $('.signInSection').css('display', 'none');
+}
