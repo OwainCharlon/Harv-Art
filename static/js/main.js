@@ -2,7 +2,8 @@ var apiEndpointBaseURL = "https://api.harvardartmuseums.org/object";
 var queryString = $.param({
     apikey: "b6782a10-8def-11ea-877a-6df674fda82b",
     classification: "Paintings",
-    size: "20"
+    size: "15",
+    hasimage: "1"
 });
 
 function toggleLike() {
@@ -49,11 +50,14 @@ $.getJSON(apiEndpointBaseURL + "?" + queryString, function(data) {
         images.push("url(\"" + data.records[img5].images[0].baseimageurl);
         $('.carrousel').css("background-image", "url(\"" + data.records[img5].images[0].baseimageurl + "\"\)");
         $('.carrousel').fadeOut(2500);
+
+
         // Tableau pour Daily Image
-        var randomImage = Math.floor(Math.random() * 20);
+
+        var randomImage = Math.floor(Math.random() * 15);
         while (typeof data.records[randomImage].images[0] === 'undefined' && typeof data.records[randomImage].labeltext === 'undefined') {
             randomImage++;
-            if (randomImage > 20) { randomImage = 0; }
+            if (randomImage > 15) { randomImage = 0; }
         }
         var randomImgUrl = "url(\"" + data.records[randomImage].images[0].baseimageurl + "\"\)";
         var randomImgText = data.records[randomImage].labeltext;
@@ -80,16 +84,16 @@ carrouStyle();
 
 // RESIZE FUNCTION
 
-// var headerHeight;
-// var screenHeight;
+var headerHeight;
+var screenHeight;
 
-// function resize() {
-//     screenHeight = $(window).innerHeight();
-//     headerHeight = $('.nav').innerHeight() + $('.mainTitle').innerHeight() + 120;
-//     valueHero = screenHeight - headerHeight;
-//     $('.containerCarrousel').css('height', valueHero);
-// }
+function resize() {
+    screenHeight = $(window).innerHeight();
+    headerHeight = $('.navbar').innerHeight() + $('.mainTitle').innerHeight() + 200;
+    valueCarrou = screenHeight - headerHeight;
+    $('.containerCarrousel').css('height', valueCarrou);
+}
 
-// resize();
+resize();
 
-// $(window).resize(resize);
+$(window).resize(resize);
