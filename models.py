@@ -1,10 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 
-db = SQLAlchemy()
+from main import db
 
 class User(db.Model):
-    __tablename__ = "User"
+    __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     username = db.Column(db.String(30), nullable=False)
     password = db.Column(db.String(30), nullable=False)
@@ -14,13 +14,11 @@ class User(db.Model):
         self.username = username
         self.password = password
         self.email = email
-        
-    #def __repr__(self):
-     #   return "<Chronic_diseases(pathology_id=%s, is_chronic=%d)>" % (
-        #    self.pathology_id, self.is_chronic)
+    def __repr__(self):
+    		return "<user({},{},{},{})>".format(self.id, self.username, self.password, self.email)   
         
 class Favorite(db.Model):
-    __tablename__ = "Favorite"
+    __tablename__ = "favorite"
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     masterpiece_id = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('User.id', ondelete='CASCADE'), nullable=False)
@@ -28,10 +26,11 @@ class Favorite(db.Model):
     def __init__(self, masterpiece_id, user_id):
         self.masterpiece_id = masterpiece_id
         self.user_id = user_id
-        
+    def __repr__(self):
+        		return "<favorite({},{},{})>".format(self.id, self.masterpiece_id, self.user_id)    
 
 class History(db.Model):
-    __tablename__ = "History"
+    __tablename__ = "history"
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     masterpiece_id = db.Column(db.Integer, nullable=False)
     date = db.Column(db.DateTime, nullable=False)
@@ -42,6 +41,8 @@ class History(db.Model):
         self.date = date
         self.user_id = user_id
         
+    def __repr__(self):
+        return "<history({},{},{},{})>".format(self.id, self.masterpiece_id, self.date, self.user_id)    
         
 class Comment(db.Model):
     __tablename__ = "Comment"
@@ -56,3 +57,6 @@ class Comment(db.Model):
         self.masterpiece_id = masterpiece_id
         self.date = date
         self.user_id = user_id
+        
+    def __repr__(self):
+    		return "<comment({},{},{},{},{})>".format(self.id, self.content, self.masterpiece_id, self.date, self.user_id)
