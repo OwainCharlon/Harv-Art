@@ -16,8 +16,20 @@ with app.app_context():
 	db.init_app(app)
 
 
-@app.route("/")
+@app.route("/", methods=["POST", "GET"])
 def homepage():
+    if request.method == "POST":
+        email = request.form['inputEmail']
+        password = request.form['inputPassword']
+
+        usr = db.session.query(User).filter(User.email==email).first()
+        
+        if usr and sha256_crypt.verify(password, usr.password):
+            session['userId'] = usr.id
+            return redirect(url_for("homepage"))
+        else:
+            flash(f"Password or email adress are incorrect.", "info")
+        
     return render_template("index.html")
 
 
@@ -54,22 +66,23 @@ def signup():
     return render_template("signup.html")
 
 
-@app.route("/signin", methods=["POST", "GET"])
-def signin():
+# Intégré dans index.html route "/"
+# @app.route("/signin", methods=["POST", "GET"])
+# def signin():
     
-    if request.method == "POST":
-        email = request.form['inputEmail']
-        password = request.form['inputPassword']
+#     if request.method == "POST":
+#         email = request.form['inputEmail']
+#         password = request.form['inputPassword']
 
-        usr = db.session.query(User).filter(User.email==email).first()
+#         usr = db.session.query(User).filter(User.email==email).first()
         
-        if usr and sha256_crypt.verify(password, usr.password):
-            session['userId'] = usr.id
-            return redirect(url_for("homepage"))
-        else:
-            flash(f"Password or email adress are incorrect.", "info")
+#         if usr and sha256_crypt.verify(password, usr.password):
+#             session['userId'] = usr.id
+#             return redirect(url_for("homepage"))
+#         else:
+#             flash(f"Password or email adress are incorrect.", "info")
 
-    return render_template("signin.html")
+#     return render_template("signin.html")
 
 @app.route("/addContent/<contentType>/<masterpieceId>")
 @app.route("/addContent/<contentType>/<masterpieceId>/<commentContent>")
