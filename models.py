@@ -1,8 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 
-from main import app
-db = SQLAlchemy(app)
+from database import db
 
 
 class User(db.Model):

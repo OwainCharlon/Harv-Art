@@ -6,11 +6,15 @@ sys.dont_write_bytecode = True
 
 from passlib.hash import sha256_crypt #Use for password hashing
 
-from models import *
-import config
 
-app = Flask(__name__)
-app.config.from_object(config.DevelopmentConfig)
+
+from database import db
+from models import *
+from application import app
+
+db.init_app(app)
+
+
 
 @app.route("/", methods=["POST", "GET"])
 def homepage():
@@ -37,7 +41,7 @@ def search():
 
 @app.route("/favorites")
 def favorites():
-    #favorites = db.session.query(Favorite).filter(User.id==session["userId"]).all()
+    favorites = db.session.query(Favorite).filter(User.id==session["userId"]).all()
     
     return render_template("favorites.html", favorites=favorites)
 
@@ -57,7 +61,7 @@ def signup():
             db.session.add(User(username, sha256_crypt.encrypt(password), email))
             db.session.commit() #Use everytime you make a change into your db.
             flash(f"Account created with success.", "info")
-            return redirect(url_for("signin"))
+            return redirect(url_for("homepage"))
         
     return render_template("signup.html")
 
