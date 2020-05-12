@@ -1,13 +1,15 @@
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 
-from main import db
+from main import app
+db = SQLAlchemy(app)
+
 
 class User(db.Model):
     __tablename__ = "user"
-    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30), nullable=False)
-    password = db.Column(db.String(30), nullable=False)
+    password = db.Column(db.String(256), nullable=False)
     email = db.Column(db.String(50), nullable=False)
     
     def __init__(self, username, password, email):
@@ -19,9 +21,9 @@ class User(db.Model):
         
 class Favorite(db.Model):
     __tablename__ = "favorite"
-    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
     masterpiece_id = db.Column(db.Integer, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('User.id', ondelete='CASCADE'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id, ondelete='CASCADE'), nullable=False)
     
     def __init__(self, masterpiece_id, user_id):
         self.masterpiece_id = masterpiece_id
@@ -31,10 +33,10 @@ class Favorite(db.Model):
 
 class History(db.Model):
     __tablename__ = "history"
-    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
     masterpiece_id = db.Column(db.Integer, nullable=False)
     date = db.Column(db.DateTime, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('User.id', ondelete='CASCADE'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id, ondelete='CASCADE'), nullable=False)
     
     def __init__(self, masterpiece_id, date, user_id):
         self.masterpiece_id = masterpiece_id
@@ -46,11 +48,11 @@ class History(db.Model):
         
 class Comment(db.Model):
     __tablename__ = "Comment"
-    id = db.Column(db.Integer, primary_key=True, nullable=False)
-    content = db.Column(db.Text, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
     masterpiece_id = db.Column(db.Integer, nullable=False)
+    content = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('User.id', ondelete='CASCADE'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id, ondelete='CASCADE'), nullable=False)
     
     def __init__(self, content, masterpiece_id, date, user_id):
         self.content = content
