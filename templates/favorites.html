@@ -1,47 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Favoris</title>
-    <link href="{{ url_for('static', filename='css/fav.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,600,700" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
-
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for('homepage') }}">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('search') }}">Recherche</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('favorites') }}">Favoris</a>
-                </li>
-                <li class="nav-item">
-                    <a class='nav-link signIn' href="{{ url_for('signin') }}">Connexion</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+{% extends "base.html" %} {% block content %}
 
 <body>
-    <div class="container text-center mt-4">
-        <h1 class="title">Favoris</h1>
-
+    <div class="fav">
+        <h1 class="favTitle">Vos Favoris</h1>
     </div>
-</body>
+    <section class="listFav container">
 
-</html>
+    </section>
+
+
+    {% endblock %}

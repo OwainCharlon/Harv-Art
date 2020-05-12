@@ -41,7 +41,7 @@ def search():
 
 @app.route("/favorites")
 def favorites():
-    favorites = db.session.query(Favorite).filter(User.id==session["userId"]).all()
+    #favorites = db.session.query(Favorite).filter(User.id==session["userId"]).all()
     
     return render_template("favorites.html", favorites=favorites)
 

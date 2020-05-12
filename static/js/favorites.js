@@ -1,0 +1,1 @@
+$('.listFav').append('<div id=maDiv class=classe>Coucou</div>');

@@ -118,3 +118,21 @@ a {
     z-index: 9999;
     width: 100vw;
 }
+
+
+/* Page Favoris */
+
+.fav {
+    display: flex;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+.favTitle {
+    margin-top: 100px;
+    font-family: "Permanent Marker", cursive;
+    color: black;
+    z-index: 9996;
+}

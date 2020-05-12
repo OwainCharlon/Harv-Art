@@ -50,6 +50,7 @@ $.getJSON(apiEndpointBaseURL + "?" + queryString, function(data) {
         images.push("url(\"" + data.records[img5].images[0].baseimageurl);
         $('.carrousel').css("background-image", "url(\"" + data.records[img5].images[0].baseimageurl + "\"\)");
         $('.carrousel').fadeOut(2500);
+        console.log(images);
 
 
         // Tableau pour Daily Image
