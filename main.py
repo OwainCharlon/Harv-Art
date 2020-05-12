@@ -1,6 +1,8 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
+import sys
+sys.dont_write_bytecode = True
 
 from passlib.hash import sha256_crypt #Use for password hashing
 
@@ -9,12 +11,6 @@ import config
 
 app = Flask(__name__)
 app.config.from_object(config.DevelopmentConfig)
-db = SQLAlchemy()
-#db.init_app(app)
-
-with app.app_context():
-	db.init_app(app)
-
 
 @app.route("/", methods=["POST", "GET"])
 def homepage():
@@ -94,7 +90,7 @@ def addContent(contentType, masterpieceId, commentContent=None):
     requests = {
             1: "db.session.add(Favorite({masterpieceId}, session['userId']))",
             2: "db.session.add(History({masterpieceId}, datetime.datetime.today().strftime('%Y-%m-%d'), session['userId']))",
-            3: "db.session.add(Comment({content}, {masterpieceId}, datetime.datetime.today().strftime('%Y-%m-%d'), session['userId']))",
+            3: "db.session.add(Comment({masterpieceId}, {content}, datetime.datetime.today().strftime('%Y-%m-%d'), session['userId']))",
         }
     eval(requests[int(contentType)].format(masterpieceId=int(masterpieceId), content=str(commentContent)))
     db.session.commit()
@@ -148,5 +144,3 @@ def deleteContent(contentType, contentId):
     
 if __name__ == "__main__":
     app.run(debug=True)
-    db.create_all() #DB création with ORM and models.
-    #db.session.commit()
