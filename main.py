@@ -1,16 +1,15 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
-import sys
-sys.dont_write_bytecode = True
+#import sys
+#sys.dont_write_bytecode = True
 
 from passlib.hash import sha256_crypt #Use for password hashing
 
-
-
-from database import db
-from models import *
+from models import db
 from application import app
+from models import *
+
 
 db.init_app(app)
 
