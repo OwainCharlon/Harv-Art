@@ -61,6 +61,17 @@ a {
     position: relative;
 }
 
+.dailyDesc {
+    display: flex;
+    float: right;
+    height: 500px;
+    width: 40%;
+    margin-right: 5%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 80px;
+}
+
 .like {
     position: absolute;
     right: 5%;
@@ -85,17 +96,6 @@ a {
 
 .like:hover {
     cursor: pointer;
-}
-
-.dailyDesc {
-    display: flex;
-    float: right;
-    height: 500px;
-    width: 40%;
-    margin-right: 5%;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 80px;
 }
 
 .overlay {
@@ -135,4 +135,36 @@ a {
     font-family: "Permanent Marker", cursive;
     color: black;
     z-index: 9996;
+}
+
+.favItem {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.favImg {
+    display: flex;
+    float: left;
+    height: 500px;
+    width: 45%;
+    background-image: url("../img/notLiked.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.favInfo {
+    display: grid;
+    float: right;
+    height: 500px;
+    width: 45%;
+}
+
+.favItemTitle,
+.favDesc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
