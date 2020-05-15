@@ -15,6 +15,7 @@ class User(db.Model):
         self.username = username
         self.password = password
         self.email = email
+        
     def __repr__(self):
     		return "<user({},{},{},{})>".format(self.id, self.username, self.password, self.email)   
         
@@ -27,6 +28,7 @@ class Favorite(db.Model):
     def __init__(self, masterpiece_id, user_id):
         self.masterpiece_id = masterpiece_id
         self.user_id = user_id
+        
     def __repr__(self):
         		return "<favorite({},{},{})>".format(self.id, self.masterpiece_id, self.user_id)    
 
