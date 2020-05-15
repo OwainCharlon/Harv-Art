@@ -138,8 +138,10 @@ a {
 }
 
 .favItem {
+    height: 600px;
     padding-top: 50px;
     padding-bottom: 50px;
+    margin-bottom: 50px;
 }
 
 .favImg {
