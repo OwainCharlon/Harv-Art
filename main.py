@@ -1,9 +1,6 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
-#import sys
-#sys.dont_write_bytecode = True
-
 from passlib.hash import sha256_crypt #Use for password hashing
 
 from models import db
@@ -12,8 +9,6 @@ from models import *
 
 
 db.init_app(app)
-
-
 
 @app.route("/", methods=["POST", "GET"])
 def homepage():
@@ -31,19 +26,9 @@ def homepage():
         
     return render_template("index.html")
 
-
-@app.route("/search")
-def search():
-    
-    return render_template("search.html")
-
-
-@app.route("/favorites")
-def favorites():
-    favorites = db.session.query(Favorite).filter(User.id==session["userId"]).all()
-    
-    return render_template("favorites.html", favorites=favorites)
-
+@app.route("/sessionLogout")
+def logout():
+    session.pop("userId", None) #Delete the userId of the current user session
 
 @app.route("/signup", methods=["POST", "GET"])
 def signup():
@@ -65,23 +50,18 @@ def signup():
     return render_template("signup.html")
 
 
-# Intégré dans index.html route "/"
-# @app.route("/signin", methods=["POST", "GET"])
-# def signin():
+@app.route("/search")
+def search():
     
-#     if request.method == "POST":
-#         email = request.form['inputEmail']
-#         password = request.form['inputPassword']
+    return render_template("search.html")
 
-#         usr = db.session.query(User).filter(User.email==email).first()
-        
-#         if usr and sha256_crypt.verify(password, usr.password):
-#             session['userId'] = usr.id
-#             return redirect(url_for("homepage"))
-#         else:
-#             flash(f"Password or email adress are incorrect.", "info")
 
-#     return render_template("signin.html")
+@app.route("/favorites")
+def favorites():
+    favorites = db.session.query(Favorite).filter(User.id==session["userId"]).all()
+    
+    return render_template("favorites.html", favorites=favorites)
+
 
 @app.route("/addContent/<contentType>/<masterpieceId>")
 @app.route("/addContent/<contentType>/<masterpieceId>/<commentContent>")
@@ -93,43 +73,13 @@ def addContent(contentType, masterpieceId, commentContent=None):
     requests = {
             1: "db.session.add(Favorite({masterpieceId}, session['userId']))",
             2: "db.session.add(History({masterpieceId}, datetime.datetime.today().strftime('%Y-%m-%d'), session['userId']))",
-            3: "db.session.add(Comment({masterpieceId}, {content}, datetime.datetime.today().strftime('%Y-%m-%d'), session['userId']))",
+            3: "db.session.add(Comment({content}, {masterpieceId}, datetime.datetime.today().strftime('%Y-%m-%d'), session['userId']))",#Fucking PROBLEME INVERSION CONTENT ET MASTERPIECE, ALORS QUE MODEL....
         }
     eval(requests[int(contentType)].format(masterpieceId=int(masterpieceId), content=str(commentContent)))
     db.session.commit()
     
     return jsonify("Content well updated.")
 
-# @app.route("/addFavorite/<masterpieceId>")
-# def addFavorite(masterpieceId):
-#     db.session.add(Favorite(masterpieceId, datetime.datetime.today().strftime('%Y-%m-%d'), session['userId']))
-#     db.session.commit()
-    
-#     return jsonify("Added to your favorits.")
-
-
-# @app.route("/addHistory/<masterpieceId>")
-# def addHistory(masterpieceId):
-#     db.session.add(History(masterpieceId, datetime.datetime.today().strftime('%Y-%m-%d'), session["userId"]))
-#     db.session.commit()
-    
-#     return jsonify("Added to your history.")
-
-
-# @app.route("/addComment/<content>/<masterpieceId>")
-# def addComment(content,masterpieceId):
-#     db.session.add(Comment(content, masterpieceId, datetime.datetime.today().strftime('%Y-%m-%d'), session["userId"]))
-#     db.session.commit()
-    
-#     return jsonify("Comment well created.")
-
-@app.route("/admin")
-def admin():
-    
-    users = db.session.query(User).all()
-    comments = db.session.query(Comment).all()
-    
-    return render_template("admin.html", users=users, comments=comments)
 
 @app.route("/deleteContent/<contentType>/<contentId>")
 def deleteContent(contentType, contentId):
@@ -144,6 +94,16 @@ def deleteContent(contentType, contentId):
     db.session.commit()
 
     return jsonify("Content well updated.")
+
+
+@app.route("/admin")
+def admin():
+    
+    users = db.session.query(User).all()
+    comments = db.session.query(Comment).all()
+    
+    return render_template("admin.html", users=users, comments=comments)
+
     
 if __name__ == "__main__":
     app.run(debug=True)
