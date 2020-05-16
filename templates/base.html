@@ -29,13 +29,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('favorites') }}">Favoris</a>
                 </li>
-                {% endif %}
-                {% if not session['userId'] %}
+                {% endif %} {% if not session['userId'] %}
                 <li class="nav-item">
                     <a class='nav-link signIn' onclick="signIn()">Connexion</a>
                 </li>
-                {% endif %}
-                {% if session['userId'] %}
+                {% endif %} {% if session['userId'] %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('logout') }}">Deconnexion</a>
                 </li>
@@ -87,7 +85,11 @@
             <div class="fsAuthorTitle">test AuthorTitle</div>
         </div>
         <div class="part2">
-            <div class="fsImg">IMG</div>
+            <div class="fsImg">
+                {% if session["userId"] %}
+                <div class="fsLike notLiked" onclick="toggleLike()"></div>
+                {% endif %}
+            </div>
         </div>
         <div class="part3">
             <div class="fsDesc"></div>

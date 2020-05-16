@@ -11,6 +11,11 @@ function toggleLike() {
     $(".like").toggleClass("notLiked");
 }
 
+function toggleLike() {
+    $(".fsLike").toggleClass("liked");
+    $(".fsLike").toggleClass("notLiked");
+}
+
 // FETCH + CARROUSSEL
 let data;
 var images = new Array();

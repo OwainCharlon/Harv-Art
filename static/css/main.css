@@ -1,4 +1,4 @@
-    body {
+body {
     background: white;
     z-index: -1;
 }
@@ -72,12 +72,13 @@ a {
     margin-bottom: 80px;
 }
 
-.like {
+.fsLike {
     position: absolute;
     right: 5%;
     bottom: 5%;
     height: 7%;
     width: 7%;
+    z-index: 9999;
 }
 
 .notLiked {
@@ -200,6 +201,7 @@ a {
 
 .fsImg {
     height: 50vh;
+    position: relative;
 }
 
 .fsAuthorTitle {
@@ -215,10 +217,12 @@ a {
 .fsComment {
     height: 50vh;
     overflow: auto;
-    .msg {
-        position: absolute;
-        background-color: #40E0D0;
-        width: 100%;
-        color: white;
-        text-align: center;
-    }
+}
+
+.msg {
+    position: absolute;
+    background-color: #40E0D0;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
