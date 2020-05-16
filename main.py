@@ -54,10 +54,10 @@ def signup():
     return render_template("signup.html")
 
 
-@app.route("/search")
-def search():
+#@app.route("/search")
+#def search():
     
-    return render_template("search.html")
+#   return render_template("search.html")
 
 
 @app.route("/favorites")

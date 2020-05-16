@@ -18,48 +18,52 @@ class User(db.Model):
         
     def __repr__(self):
     		return "<user({},{},{},{})>".format(self.id, self.username, self.password, self.email)   
-        
+
+
 class Favorite(db.Model):
     __tablename__ = "favorite"
     id = db.Column(db.Integer, primary_key=True)
     masterpiece_id = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(User.id, ondelete='CASCADE'), nullable=False)
     
-    def __init__(self, masterpiece_id, user_id):
+    def __init__(self, user_id, masterpiece_id):
         self.masterpiece_id = masterpiece_id
         self.user_id = user_id
         
     def __repr__(self):
         		return "<favorite({},{},{})>".format(self.id, self.masterpiece_id, self.user_id)    
 
-class History(db.Model):
-    __tablename__ = "history"
-    id = db.Column(db.Integer, primary_key=True)
-    masterpiece_id = db.Column(db.Integer, nullable=False)
-    date = db.Column(db.DateTime, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey(User.id, ondelete='CASCADE'), nullable=False)
-    
-    def __init__(self, masterpiece_id, date, user_id):
-        self.masterpiece_id = masterpiece_id
-        self.date = date
-        self.user_id = user_id
-        
-    def __repr__(self):
-        return "<history({},{},{},{})>".format(self.id, self.masterpiece_id, self.date, self.user_id)    
-        
+
 class Comment(db.Model):
     __tablename__ = "Comment"
     id = db.Column(db.Integer, primary_key=True)
-    masterpiece_id = db.Column(db.Integer, nullable=False)
     content = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime, nullable=False)
+    masterpiece_id = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(User.id, ondelete='CASCADE'), nullable=False)
     
-    def __init__(self, content, masterpiece_id, date, user_id):
+    def __init__(self, content, date, masterpiece_id, user_id):
         self.content = content
-        self.masterpiece_id = masterpiece_id
         self.date = date
+        self.masterpiece_id
         self.user_id = user_id
         
     def __repr__(self):
-    		return "<comment({},{},{},{},{})>".format(self.id, self.content, self.masterpiece_id, self.date, self.user_id)
+    		return "<comment({},{},{},{},{})>".format(self.id, self.content, self.date, self.masterpiece_id, self.user_id)
+
+
+class History(db.Model):
+    __tablename__ = "history"
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime, nullable=False)
+    masterpiece_id = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id, ondelete='CASCADE'), nullable=False)
+    
+    def __init__(self, date, masterpiece_id, user_id):
+        self.date = date
+        self.masterpiece_id = masterpiece_id
+        self.user_id = user_id
+        
+    def __repr__(self):
+        return "<history({},{},{},{})>".format(self.id, self.date, self.masterpiece_id, self.user_id)    
+        
