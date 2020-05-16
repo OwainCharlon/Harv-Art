@@ -2,7 +2,7 @@
 
 <body>
     {% with messages = get_flashed_messages() %} {% if messages %} {% for msg in messages %}
-    <p>{{msg}}</p>
+    <p class="msg alert">{{msg}}</p>
     {% endfor %} {% endif %} {% endwith %}
     <section class="main mt-5 mb-5">
         <div class="mainTitle mt-5">
@@ -15,7 +15,7 @@
             <h2 class="dailyTitle">La poésie Owainienne du jour</h2>
             <div class="dailyImg">
                 {% if session["userId"] %}
-                <div class="like notLiked" onclick="toggleLike()"></div>
+                    <div class="like notLiked" onclick="toggleLike()"></div>
                 {% endif %}
             </div>
             <div class="dailyDesc">
