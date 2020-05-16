@@ -36,7 +36,7 @@ $.getJSON(apiEndpointBaseURL + "?" + queryString, function(data) {
         return 0;
     }
     $(document).ready(function() {
-        console.log(data);
+        //console.log(data);
 
         // Tableau pour carrousel
         while (typeof data.records[img1].images[0] === 'undefined') { img1++; }
@@ -55,7 +55,7 @@ $.getJSON(apiEndpointBaseURL + "?" + queryString, function(data) {
         images.push("url(\"" + data.records[img5].images[0].baseimageurl);
         $('.carrousel').css("background-image", "url(\"" + data.records[img5].images[0].baseimageurl + "\"\)");
         $('.carrousel').fadeOut(2500);
-        console.log(images);
+        //console.log(images);
 
 
         // Tableau pour Daily Image
@@ -65,13 +65,16 @@ $.getJSON(apiEndpointBaseURL + "?" + queryString, function(data) {
             randomImage++;
             if (randomImage > 15) { randomImage = 0; }
         }
+        var randomId = data.records[randomImage].id
         var randomImgUrl = "url(\"" + data.records[randomImage].images[0].baseimageurl + "\"\)";
         var randomImgText = data.records[randomImage].labeltext;
         if (randomImgText == null) {
             randomImgText = "Désolé aucune description n'est renseignée pour cette oeuvre, nous comptons sur la créativité impressionnante de nos internautes pour vous inventer une histoire. Merci <3";
         }
+        $('.dailyImg').attr('id', randomId);
         $('.dailyImg').css("background-image", randomImgUrl);
         $('.dailyDesc p').html(randomImgText);
+
     });
 });
 
@@ -117,9 +120,35 @@ function closeSignInAndCo() {
     $('.bigImg').css('display', 'none');
 }
 
+// On récupère les Id des masterpieces et on les mets dans les Div pour bosser propre
+
+function fetchImgInfo(imgId) {
+    var apiEndpointBaseURL = "https://api.harvardartmuseums.org/object";
+    var queryString = $.param({
+        apikey: "b6782a10-8def-11ea-877a-6df674fda82b"
+    });
+
+    $.getJSON(apiEndpointBaseURL + "/" + imgId + "?" + queryString, function(data) {
+        $(document).ready(function() {
+            console.log(data);
+
+            var authorTitle = (data.people) ? (data.title + " - " + data.people[0].name) : (data.title + " - Unknown Artist");
+            $('.fsAuthorTitle').append(authorTitle);
+            var img = "url(\"" + data.images[0].baseimageurl + "\"\)";
+            $('.fsImg').css("background-image", img);
+            var desc = (data.labeltext) ? (data.labeltext) : ("Aucune description disponible. Déso !");
+            $('.fsDesc').append(desc);
+        });
+    });
+}
+
 // Faire ressortir l'image au clic
 
-function imgFS() {
+function imgFS(imgId) {
     $('.overlay').css('display', 'block');
     $('.bigImg').css('display', 'grid');
+    fetchImgInfo(imgId);
 }
+
+
+// ATTENTION VISER CONTENU HTML QUAND OVERLAY CLICKé
