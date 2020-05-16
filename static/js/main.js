@@ -106,7 +106,15 @@ function signIn() {
     $('.signInSection').css('display', 'flex');
 }
 
-function closeSignIn() {
+function closeSignInAndCo() {
     $('.overlay').css('display', 'none');
     $('.signInSection').css('display', 'none');
+    $('.bigImg').css('display', 'none');
+}
+
+// Faire ressortir l'image au clic
+
+function imgFS() {
+    $('.overlay').css('display', 'block');
+    $('.bigImg').css('display', 'grid');
 }

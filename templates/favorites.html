@@ -7,13 +7,14 @@
 
     <section class="listFav container">
         {% for favorite in favorites %}
-        <div class="favItem" class=classe id={{ favorite.id }}>
+        <div class="favItem" id={{ favorite.id }}>
             <div class="favImg">
-                <div class="like liked" onclick="toggleLikeFav()"></div>
+                <div class="like liked" onclick="toggleLikeFav()" style="background-image: url({{ favorite.url }});"></div>
             </div>
             <div class="favInfo">
-                <div class="favItemTitle"></div>
-                <div class="favDesc"></div>
+                <div class="favItemTitle">{{ favorite.title }}</div>
+                <div class="favAuthor">{{ favorite.author }}</div>
+                <div class="favDesc">{{ favorite.desc }}</div>
             </div>
         </div>
         {% endfor %}

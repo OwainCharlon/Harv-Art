@@ -37,7 +37,7 @@
         </div>
     </nav>
 </header>
-<div class="overlay" onclick="closeSignIn()">
+<div class="overlay" onclick="closeSignInAndCo()">
 </div>
 <section class="signInSection">
     <div class="container">
@@ -73,6 +73,31 @@
             </div>
         </div>
     </div>
+</section>
+<section class="bigImg">
+    <div class="col1">
+        <div class="part1">
+            <div class="fsAuthorTitle">test AuthorTitle</div>
+        </div>
+        <div class="part2">
+            <div class="fsImg">IMG</div>
+        </div>
+        <div class="part3">
+            <div class="fsDesc"></div>
+        </div>
+    </div>
+    <div class="col2">
+        <div class="fsComment"></div>
+        <div class="fsCommentForm">
+            <form>
+                <div class="form-group">
+                    <label for="comment">Ajoutes ton mot !</label>
+                    <input type="comment" class="form-control" id="comment" aria-describedby="commentHelp" placeholder="Tapes des mots ici...">
+                    <small id="emailHelp" class="form-text text-muted">Tapes ci dessus ce que tu veux partager avec le monde.</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
 </section>
 {% block content %} {% endblock %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
