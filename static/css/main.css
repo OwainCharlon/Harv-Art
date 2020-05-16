@@ -1,4 +1,4 @@
-body {
+    body {
     background: white;
     z-index: -1;
 }
@@ -215,4 +215,10 @@ a {
 .fsComment {
     height: 50vh;
     overflow: auto;
-}
+    .msg {
+        position: absolute;
+        background-color: #40E0D0;
+        width: 100%;
+        color: white;
+        text-align: center;
+    }
