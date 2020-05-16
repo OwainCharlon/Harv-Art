@@ -104,6 +104,100 @@ def admin():
     
     return render_template("admin.html", users=users, comments=comments)
 
+
+def fetch_all(ressource):
+    tab = []
+    page = 0
+    pages = 1
+    while(page <= pages):
+        page += 1
+        response = http.request('GET', 'https://api.harvardartmuseums.org/'+ressource,
+                                fields={
+                                    'apikey': 'b6782a10-8def-11ea-877a-6df674fda82b',
+                                    'sort': 'name',
+                                    'page': page,
+                                    'size': 100
+                                })
+        content = json.loads(response.data)
+        pages = content['info']['pages']
+        for record in content['records']:
+            tab.append([record['id'], record['name']])
+    return tab
+
+
+@app.route('/choose')
+def choose():
+    forms_data = []
+    forms_data.append(['culture', fetch_all('culture')])
+    forms_data.append(['century', fetch_all('century')])
+    forms_data.append(['period', fetch_all('period')])
+    forms_data.append(['technique', fetch_all('technique')])
+    forms_data.append(['worktype', fetch_all('worktype')])
+    return render_template('choose.html', forms_data=forms_data)
+
+
+@app.route("/search", methods=['POST'])
+def search():
+    culture = request.form.get('culture')
+    century = request.form.get('century')
+    period = request.form.get('period')
+    technique = request.form.get('technique')
+    worktype = request.form.get('worktype')
+    fields = {
+        'apikey': 'b6782a10-8def-11ea-877a-6df674fda82b',
+        'hasimage': 1,
+        'size': 10
+    }
+    if culture:
+        fields['culture'] = culture
+    if century:
+        fields['century'] = century
+    if period:
+        fields['period'] = period
+    if technique:
+        fields['technique'] = technique
+    if worktype:
+        fields['worktype'] = worktype
+    session['fields'] = fields
+    response = http.request(
+        'GET', 'https://api.harvardartmuseums.org/object', fields)
+    content = json.loads(response.data)
+    return render_template('art.html', content=content)
+
+
+@app.route("/page", methods=['POST'])
+def page():
+    fields = session['fields']
+    fields['page'] = request.form.get('page')
+    response = http.request(
+        'GET', 'https://api.harvardartmuseums.org/object', fields)
+    content = json.loads(response.data)
+    return render_template('art.html', content=content)
+
+
+@app.route("/keyword", methods=['POST'])
+def keyword():
+    fields = {
+        'apikey': 'b6782a10-8def-11ea-877a-6df674fda82b',
+        'hasimage': 1,
+        'size': 10
+    }
+    fields['keyword'] = request.form.get('keyword')
+    session['fields'] = fields
+    response = http.request(
+        'GET', 'https://api.harvardartmuseums.org/object', fields)
+    content = json.loads(response.data)
+    return render_template('art.html', content=content)
+
+
+# @app.route("/id")
+# def id():
+#     response = http.request('GET', 'https://api.harvardartmuseums.org/object/420',
+#                             fields={
+#                                 'apikey': 'b6782a10-8def-11ea-877a-6df674fda82b',
+#                             })
+#     content = json.loads(response.data)
+#     return content
     
 if __name__ == "__main__":
     app.run(debug=True)

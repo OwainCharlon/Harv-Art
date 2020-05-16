@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Document</title>
+</head>
+
+<body>
+	<form method="POST" action="{{ url_for('search') }}">
+		{% for el in forms_data %}
+		<div class="{{ el[0] }}">
+			<input type="text" id="{{ el[0] }}Input" onkeyup="myFunction('{{ el[0] }}')"
+				placeholder="Search a {{ el[0] }}">
+			<br>
+			<select id="{{ el[0] }}Select" name="{{ el[0] }}">
+				<option></option>
+				{% for values in el[1] %}
+				<option><a href="#{{ values[0] }}">{{ values[1] }}</a></option>
+				{% endfor %}
+			</select>
+		</div>
+		<br>
+		{% endfor %}
+		<button type="submit" class="btn btn-default">Search</button>
+	</form>
+	<br><br>
+	<form method="post" action="{{ url_for('keyword') }}">
+		<div class="keyword">
+			<input type="text" name="keyword" placeholder="Search by keyword">
+		</div>
+	</form>
+	<script>
+		function myFunction(id_name) {
+			var input, filter, select, option, a, i, txtValue;
+			input = document.getElementById(id_name + "Input");
+			filter = input.value.toUpperCase();
+			select = document.getElementById(id_name + "Select");
+			options = select.getElementsByTagName("option");
+			for (option of options) {
+				txtValue = option.text
+				if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					option.style.display = "";
+				} else {
+					option.style.display = "none";
+				}
+			}
+		}
+	</script>
+</body>
+
+</html>
