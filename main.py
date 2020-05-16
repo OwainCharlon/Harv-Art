@@ -10,6 +10,7 @@ from models import *
 
 db.init_app(app)
 
+
 @app.route("/", methods=["POST", "GET"])
 def homepage():
     if request.method == "POST":
@@ -26,9 +27,12 @@ def homepage():
         
     return render_template("index.html")
 
-@app.route("/sessionLogout")
+
+@app.route("/logout")
 def logout():
     session.pop("userId", None) #Delete the userId of the current user session
+    
+    return redirect(url_for("homepage"))
 
 @app.route("/signup", methods=["POST", "GET"])
 def signup():

@@ -170,3 +170,11 @@ a {
     align-items: center;
     width: 100%;
 }
+
+.msg{
+    position: absolute;
+    background-color: #40E0D0;
+    width: 100%;
+    color: white;
+    text-align: center; 
+}
