@@ -102,7 +102,10 @@ def deleteContent(contentType, contentId):
 def getComments(masterpieceId):
     
     comments = db.session.query(Comment).filter(Comment.masterpiece_id==masterpieceId).all()
-    commentArray = [ str(comment.content) + ',' + str(comment.date) for comment in comments]
+    if comments:
+        commentArray = [ str(comment.content) + ',' + str(comment.date) for comment in comments ]
+    else:
+        comments = "Aucun commentaire"
     
     return jsonify(commentArray)
 
