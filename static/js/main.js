@@ -144,11 +144,11 @@ function fetchImgInfo(imgId) {
                 type: 'GET',
                 url: window.origin + '/getComments' + '/' + imgId,
                 dataType: 'JSON',
-    
+
                 success: function(code_html, statut) {
                     console.log("Masterpiece comments well returned");
                 },
-    
+
                 error: function(resultat, statut, erreur) {
                     console.log("Ajax error while returning masterpiece comments.");
                 },
@@ -160,7 +160,7 @@ function fetchImgInfo(imgId) {
                         elements = element.split(',')
                         $('.fsComment').append("<div>" + elements[0] + "</div>")
                         $('.fsComment').append("<div>" + elements[1] + "</div>")
-                      }
+                    }
                     //comments.forEach(element => $('.fsComment').append("<div>" + element + "</div>"));
                 }
             });
@@ -173,6 +173,9 @@ function fetchImgInfo(imgId) {
 function imgFS(imgId) {
     $('.overlay').css('display', 'block');
     $('.bigImg').css('display', 'grid');
+    // On vide les divs
+    $('.fsAuthorTitle').empty();
+    $('.fsDesc').empty();
     fetchImgInfo(imgId);
 }
 
