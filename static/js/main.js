@@ -118,6 +118,8 @@ function closeSignInAndCo() {
     $('.overlay').css('display', 'none');
     $('.signInSection').css('display', 'none');
     $('.bigImg').css('display', 'none');
+    $('.fsAuthorTitle').empty();
+    $('.fsDesc').empty();
 }
 
 // On récupère les Id des masterpieces et on les mets dans les Div pour bosser propre
@@ -157,10 +159,8 @@ function fetchImgInfo(imgId) {
                     console.log(resultat.responseJSON);
                     comments = resultat.responseJSON
                     for (const element of comments) {
-                        elements = element.split(',')
-                        $('.fsComment').append("<div>" + elements[0] + "</div>");
-                        $('.fsComment').append("<div>" + elements[1] + "</div>");
-                        $('.fsComment').append("<div>" + elements[2] + "</div>");
+                        elements = element.split(',');
+                        $('.fsComment').append("<div class=\"comment\"><div class=\"comAuthor\">" + elements[2] + " - " + elements[1] + "</div><div class=\"comText\">" + elements[0] + "</div></div>");
                     }
                     //comments.forEach(element => $('.fsComment').append("<div>" + element + "</div>"));
                 }
@@ -174,9 +174,6 @@ function fetchImgInfo(imgId) {
 function imgFS(imgId) {
     $('.overlay').css('display', 'block');
     $('.bigImg').css('display', 'grid');
-    // On vide les divs
-    $('.fsAuthorTitle').empty();
-    $('.fsDesc').empty();
     fetchImgInfo(imgId);
 }
 
