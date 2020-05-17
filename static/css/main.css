@@ -254,3 +254,28 @@ a {
     color: white;
     text-align: center;
 }
+
+
+/* CSS Comment Full Screen Image */
+
+.comment {
+    display: block;
+    background-color: rgb(255, 255, 255);
+    border: 2px inset black;
+    border-radius: 10px;
+    margin: 5%;
+}
+
+.comAuthor {
+    margin: 5px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.comText {
+    font-family: 'Parisienne', cursive;
+    font-size: 2em;
+    margin: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
