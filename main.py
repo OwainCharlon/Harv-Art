@@ -108,6 +108,7 @@ def getComments(masterpieceId):
         commentArray = ["Aucun commentaire"]
     
     return jsonify(commentArray)
+
 @app.route("/admin")
 def admin():
     

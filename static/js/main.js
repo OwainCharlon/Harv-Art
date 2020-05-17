@@ -155,7 +155,7 @@ function fetchImgInfo(imgId) {
                 complete: function(resultat, statut) {
                     //$('.right').append('<div class=alert >' + resultat.responseJSON + '</div>');
                     console.log(resultat.responseJSON);
-                    comments = resultat.responseJSON
+                    comments = resultat.responseJSON;
                     for (const element of comments) {
                         elements = element.split(',')
                         $('.fsComment').append("<div>" + elements[0] + "</div>");
