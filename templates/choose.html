@@ -21,13 +21,12 @@
 		</div>
 		<br>
 		{% endfor %}
-		<button type="submit" class="btn btn-default">Search</button>
-	</form>
-	<br><br>
-	<form method="post" action="{{ url_for('keyword') }}">
+		<br>
 		<div class="keyword">
 			<input type="text" name="keyword" placeholder="Search by keyword">
 		</div>
+		<br><br>
+		<button type="submit" class="btn btn-default">Search</button>
 	</form>
 	<script>
 		function myFunction(id_name) {

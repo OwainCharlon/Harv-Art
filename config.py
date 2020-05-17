@@ -5,15 +5,16 @@ class BaseConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     MYSQL = {
-    'user': 'root',
-    'pw': '',
-    'db': 'harvart',
-    'host': 'localhost',
-    'port': '3308',
+        'user': 'root',
+        'pw': '',
+        'db': 'harvart',
+        'host': 'localhost',
+        'port': '3308',
     }
-    
+
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % MYSQL
-     
+
+
 class DevelopmentConfig(BaseConfig):
-	DEBUG = True
-	TESTING = True
+    DEBUG = True
+    TESTING = True
