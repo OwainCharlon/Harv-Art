@@ -98,6 +98,7 @@
     </div>
     <div class="col2">
         <div class="fsComment"></div>
+        {% if session["userId"] %}
         <div class="fsCommentForm">
             <form>
                 <div class="form-group">
@@ -107,6 +108,7 @@
                 <button type="submit" class="btn btn-primary">Je m'exprime !</button>
             </form>
         </div>
+        {% endif %}
 </section>
 {% block content %} {% endblock %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
