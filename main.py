@@ -105,7 +105,7 @@ def getComments(masterpieceId):
     if comments:
         commentArray = [ str(comment.content) + ',' + str(comment.date) for comment in comments ]
     else:
-        commentsArray = ["Aucun commentaire"]
+        commentArray = ["Aucun commentaire"]
     
     return jsonify(commentArray)
 
