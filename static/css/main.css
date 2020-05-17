@@ -279,3 +279,35 @@ a {
     margin-left: 10px;
     margin-right: 10px;
 }
+
+
+/* Page Search */
+
+.searchHead {
+    margin-left: 100px;
+}
+
+.search {
+    margin-top: 100px;
+}
+
+.searchResult {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.imgContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.imgItem {
+    height: 40vh;
+    width: 25vw;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 20px;
+}

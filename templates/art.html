@@ -1,33 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Test</title>
-</head>
+{% extends "base.html" %} {% block content %}
 
 <body>
     {% if content.records %}
-        <a href="/">
-            <h3>SELECTION MENU</h3>
-        </a>
-        <form method="post" action="{{ url_for('page') }}">
-            <div class="page">
-                <label for="page"> Where do you wanna go ? (from 1 to {{ content.info.pages }} )</label>
-                <input type="number" name="page" placeholder="page" value="{{ content.info.page }}" min="1"
-                    max="{{ content.info.pages }}">
+    <div class="search">
+        <div class="searchHead">
+            <form method="post" action="{{ url_for('page') }}">
+                <div class="page">
+                    <label for="page">Sur quelle page veux-tu te rendre ? (entre 1 et {{ content.info.pages }} )</label>
+                    <input type="number" name="page" placeholder="page" value="{{ content.info.page }}" min="1" max="{{ content.info.pages }}">
+                </div>
+            </form>
+        </div>
+        <div class="searchResult">
+            {% for record in content.records %} {% if record.images %}
+            <div class="imgContainer">
+                <div class="imgItem" id="{{ record.id }}" style="background-image: url({{ record.images[0].baseimageurl }});" onclick="imgFS(this.id)"></div>
             </div>
-        </form>
-
-        {% for record in content.records %}
-            {% if record.images %}
-                <p>{{ record.title }}</p>
-                <img src="{{ record.images[0].baseimageurl }}" height="250px">
+            {% endif %} {% endfor %} {% else %}
+            <p>There isn't any masterpiece, you may want to change your filters</p>
             {% endif %}
-        {% endfor %}
-    {% else %}
-        <p>There isn't any masterpiece, you may want to change your filters</p>
-    {% endif %}
-</body>
-
-</html>
+        </div>
+    </div>
+    {% endblock %}
