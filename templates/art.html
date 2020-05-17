@@ -8,26 +8,25 @@
 
 <body>
     {% if content.records %}
-    <a href="/">
-        <h3>SELECTION MENU</h3>
-    </a>
-    <form method="post" action="{{ url_for('page') }}">
-        <div class="page">
-            <label for="page"> Where do you wanna go ? (from 1 to {{ content.info.pages }} )</label>
-            <input type="number" name="page" placeholder="page" value="{{ content.info.page }}" min="1"
-                max="{{ content.info.pages }}">
-        </div>
-    </form>
+        <a href="/">
+            <h3>SELECTION MENU</h3>
+        </a>
+        <form method="post" action="{{ url_for('page') }}">
+            <div class="page">
+                <label for="page"> Where do you wanna go ? (from 1 to {{ content.info.pages }} )</label>
+                <input type="number" name="page" placeholder="page" value="{{ content.info.page }}" min="1"
+                    max="{{ content.info.pages }}">
+            </div>
+        </form>
 
-    {% for record in content.records %}
-    {% if record.images %}
-    <p>{{ record.title }}</p>
-    <img src="{{ record.images[0].baseimageurl }}" height="250px">
-    {% endif %}
-    {% endfor %}
+        {% for record in content.records %}
+            {% if record.images %}
+                <p>{{ record.title }}</p>
+                <img src="{{ record.images[0].baseimageurl }}" height="250px">
+            {% endif %}
+        {% endfor %}
     {% else %}
-    <p>There isn't any masterpiece, you may want to change your filters</p>
-    {{ content }}
+        <p>There isn't any masterpiece, you may want to change your filters</p>
     {% endif %}
 </body>
 

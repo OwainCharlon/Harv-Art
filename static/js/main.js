@@ -115,6 +115,7 @@ function closeSignInAndCo() {
     $('.bigImg').css('display', 'none');
     $('.fsAuthorTitle').empty();
     $('.fsDesc').empty();
+    $('.fsComment').empty();
 }
 
 // On récupère les Id des masterpieces et on les mets dans les Div pour bosser propre
