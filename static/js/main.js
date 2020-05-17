@@ -7,11 +7,6 @@ var queryString = $.param({
 });
 
 function toggleLike() {
-    $(".like").toggleClass("liked");
-    $(".like").toggleClass("notLiked");
-}
-
-function toggleLike() {
     $(".fsLike").toggleClass("liked");
     $(".fsLike").toggleClass("notLiked");
 }
@@ -155,16 +150,66 @@ function fetchImgInfo(imgId) {
                     console.log("Ajax error while returning masterpiece comments.");
                 },
                 complete: function(resultat, statut) {
-                    //$('.right').append('<div class=alert >' + resultat.responseJSON + '</div>');
                     console.log(resultat.responseJSON);
                     comments = resultat.responseJSON;
                     for (const element of comments) {
                         elements = element.split(',');
                         $('.fsComment').append("<div class=\"comment\"><div class=\"comAuthor\">" + elements[2] + " - " + elements[1] + "</div><div class=\"comText\">" + elements[0] + "</div></div>");
                     }
-                    //comments.forEach(element => $('.fsComment').append("<div>" + element + "</div>"));
                 }
             });
+
+            var addHistory = jQuery.ajax({
+                type: 'GET',
+                url: window.origin + '/addContent' + '/' + 2 + '/' + imgId,
+                dataType: 'JSON',
+    
+                success: function(code_html, statut) {
+                    console.log("Well added to your history.");
+                },
+    
+                error: function(resultat, statut, erreur) {
+                    console.log("Can not add it to your history.");
+                },
+                complete: function(resultat, statut) {
+                }
+            });
+        });
+
+        $('#addComment').click(function(){
+            var addComment = jQuery.ajax({
+                type: 'GET',
+                url: window.origin + '/addContent' + '/' + 3 + '/' + imgId + '/' + $('input[name=inputComment]').val(),
+                dataType: 'JSON',
+
+                success: function(code_html, statut) {
+                    console.log("Well added to comments.");
+                },
+
+                error: function(resultat, statut, erreur) {
+                    console.log("Can not add it to comments.");
+                },
+                complete: function(resultat, statut) {
+                }
+            });
+        });
+    });
+
+    $('#addFavorite').click(function(){
+        var addFavorite = jQuery.ajax({
+            type: 'GET',
+            url: window.origin + '/addContent' + '/' + 1 + '/' + imgId,
+            dataType: 'JSON',
+
+            success: function(code_html, statut) {
+                console.log("Well added to your favorite.");
+            },
+
+            error: function(resultat, statut, erreur) {
+                console.log("Can not add it to your favorite.");
+            },
+            complete: function(resultat, statut) {
+            }
         });
     });
 }

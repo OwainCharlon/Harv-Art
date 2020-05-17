@@ -70,23 +70,25 @@ def favorites():
     return render_template("favorites.html", favorites=favorites)
 
 
-@app.route("/addContent/<contentType>/<masterpieceId>")
-@app.route("/addContent/<contentType>/<masterpieceId>/<commentContent>")
-def addContent(contentType, masterpieceId, commentContent=None):
+@app.route("/addContent/<contentType>/<actualmasterpieceId>")
+@app.route("/addContent/<contentType>/<actualmasterpieceId>/<commentContent>")
+def addContent(contentType, actualmasterpieceId, commentContent=None):
 
-    if request.args.get("commentContent"):
-        commentContent = request.args.get("commentContent")
-
-    requests = {
-        1: "db.session.add(Favorite({masterpieceId}, session['userId']))",
-        2: "db.session.add(History({masterpieceId}, datetime.datetime.today().strftime('%Y-%m-%d'), session['userId']))",
-        # Fucking PROBLEME INVERSION CONTENT ET MASTERPIECE, ALORS QUE MODEL....
-        3: "db.session.add(Comment({content}, {masterpieceId}, datetime.datetime.today().strftime('%Y-%m-%d'), session['userId']))",
-    }
-    eval(requests[int(contentType)].format(
-        masterpieceId=int(masterpieceId), content=str(commentContent)))
-    db.session.commit()
-
+    if session['userId']:
+        if request.args.get("commentContent"):
+            commentContent = request.args.get("commentContent")
+        
+        requests = {
+            1: """db.session.add(Favorite({masterpieceId}, session['userId']))""",
+            2: """db.session.add(History(datetime.datetime.today().strftime('%Y-%m-%d'),{masterpieceId}, session['userId']))""",
+            3: """db.session.add(Comment("{content}", datetime.datetime.today().strftime('%Y-%m-%d'), {masterpieceId}, session['userId']))""",
+        }
+        eval(requests[int(contentType)].format(content=str(commentContent), masterpieceId=int(actualmasterpieceId)))
+        db.session.commit()
+        
+    else:
+        pass
+    #Redirection vers 404
     return jsonify("Content well updated.")
 
 
@@ -111,8 +113,7 @@ def getComments(masterpieceId):
     comments = db.session.query(Comment, User.username).join(
         User, Comment.user_id == User.id).filter(Comment.masterpiece_id == masterpieceId).all()
     if comments:
-        commentArray = [str(comment[0].content) + ',' + str(comment[0].date) +
-                        ',' + str(comment[1]) for comment in comments]
+        commentArray = [str(comment[0].content) + ',' + str(comment[0].date) + ',' + str(comment[1]) for comment in comments]
     else:
         commentArray = ["Aucun commentaire"]
 

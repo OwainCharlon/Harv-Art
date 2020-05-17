@@ -9,6 +9,7 @@
     <link href="static/css/search.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -92,7 +93,7 @@
         <div class="part2">
             <div class="fsImg">
                 {% if session["userId"] %}
-                <div class="fsLike notLiked" onclick="toggleLike()"></div>
+                <div class="fsLike notLiked" onclick="toggleLike()" id="addFavorite"></div>
                 {% endif %}
             </div>
         </div>
@@ -106,12 +107,12 @@
         <div class="fsCommentForm">
             <form>
                 <div class="form-group">
-                    <input type="comment" class="form-control" id="comment" aria-describedby="commentHelp"
+                    <input type="comment" class="form-control" id="comment" name="inputComment" aria-describedby="commentHelp"
                         placeholder="Tapes des mots ici...">
                     <small id="emailHelp" class="form-text text-muted">Tapes ci dessus ce que tu veux partager avec le
                         monde.</small>
                 </div>
-                <button type="submit" class="btn btn-primary">Je m'exprime !</button>
+                <button type="button" class="btn btn-primary" id="addComment">Je m'exprime !</button>
             </form>
         </div>
         {% endif %}
