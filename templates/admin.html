@@ -1,3 +1,44 @@
 {% extends "base.html" %} {% block content %}
 
-{% endblock %}
+<body>
+    <section class="admin text-center ">
+        <h1 class="mb-5">ADMIN</h1>
+        <div class="container-fluid mt-5">
+            <div class="row text-center">
+                <div class="col-lg ">
+                    <h2 class="mt-5">Liste de tous les commentaires</h1>
+
+                        {% for comment in comments %}
+                        <div class="container comments mt-5 mb-5">
+                            <p>{{ comment.content }}</p>
+                            <p>{{ comment.date }}</p>
+                            <p>{{ comment.user_id }}</p>
+                            <div class="group-btn">
+                                <button class="btn btn-danger"
+                                    action={{ url_for('deleteContent', contentType='4', contentId='1') }} id="delete"
+                                    type="submit">Supprimer</button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                </div>
+                <div class="col-lg">
+                    <h2 class="mt-5">Liste des users</h1>
+                        {% for user in users %}
+                        <div class="container-fluid user mt-5 mb-5">
+
+                            <p>{{ user.username }}</p>
+                            <p>{{ user.email }}</p>
+
+                            <div class="group-btn">
+                                <button class="btn btn-danger" id="delete">Supprimer</button>
+                            </div>
+
+                        </div>
+                        {% endfor %}
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
