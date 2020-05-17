@@ -148,8 +148,8 @@ def fetch_all(ressource):
     return tab
 
 
-@app.route('/choose')
-def choose():
+@app.route('/search')
+def search():
     forms_data = []
     forms_data.append(['culture', fetch_all('culture')])
     forms_data.append(['century', fetch_all('century')])
@@ -159,8 +159,8 @@ def choose():
     return render_template('choose.html', forms_data=forms_data)
 
 
-@app.route("/search", methods=['POST'])
-def search():
+@app.route("/customfetch", methods=['POST'])
+def customfetch():
     culture = request.form.get('culture')
     century = request.form.get('century')
     period = request.form.get('period')
