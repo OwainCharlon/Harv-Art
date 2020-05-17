@@ -7,7 +7,6 @@ from models import db
 from application import app
 from models import *
 
-
 db.init_app(app)
 
 
@@ -99,6 +98,13 @@ def deleteContent(contentType, contentId):
 
     return jsonify("Content well updated.")
 
+@app.route("/getComments/<masterpieceId>")
+def getComments(masterpieceId):
+    
+    comments = db.session.query(Comment).filter(Comment.masterpiece_id==masterpieceId).all()
+    commentArray = [ str(comment.content) + ',' + str(comment.date) for comment in comments]
+    
+    return jsonify(commentArray)
 
 @app.route("/admin")
 def admin():

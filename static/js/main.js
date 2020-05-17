@@ -138,6 +138,32 @@ function fetchImgInfo(imgId) {
             $('.fsImg').css("background-image", img);
             var desc = (data.labeltext) ? (data.labeltext) : ("Aucune description disponible. Déso !");
             $('.fsDesc').append(desc);
+
+
+            var getComments = jQuery.ajax({
+                type: 'GET',
+                url: window.origin + '/getComments' + '/' + imgId,
+                dataType: 'JSON',
+    
+                success: function(code_html, statut) {
+                    console.log("Masterpiece comments well returned");
+                },
+    
+                error: function(resultat, statut, erreur) {
+                    console.log("Ajax error while returning masterpiece comments.");
+                },
+                complete: function(resultat, statut) {
+                    //$('.right').append('<div class=alert >' + resultat.responseJSON + '</div>');
+                    console.log(resultat.responseJSON);
+                    comments = resultat.responseJSON
+                    for (const element of comments) {
+                        elements = element.split(',')
+                        $('.fsComment').append("<div>" + elements[0] + "</div>")
+                        $('.fsComment').append("<div>" + elements[1] + "</div>")
+                      }
+                    //comments.forEach(element => $('.fsComment').append("<div>" + element + "</div>"));
+                }
+            });
         });
     });
 }
@@ -151,4 +177,4 @@ function imgFS(imgId) {
 }
 
 
-// ATTENTION VISER CONTENU HTML QUAND OVERLAY CLICKé
+// ATTENTION VIDER CONTENU HTML QUAND OVERLAY CLICKé
