@@ -9,7 +9,7 @@ class BaseConfig(object):
         'pw': '',
         'db': 'harvart',
         'host': 'localhost',
-        'port': '3308',
+        'port': '3306',
     }
 
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % MYSQL

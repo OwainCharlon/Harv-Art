@@ -1,33 +1,37 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-	<title>Document</title>
-</head>
+{% extends "base.html" %} {% block content %}
 
 <body>
-	<form method="POST" action="{{ url_for('search') }}">
-		{% for el in forms_data %}
-		<div class="{{ el[0] }}">
-			<input type="text" id="{{ el[0] }}Input" onkeyup="myFunction('{{ el[0] }}')"
-				placeholder="Search a {{ el[0] }}">
-			<br>
-			<select id="{{ el[0] }}Select" name="{{ el[0] }}">
-				<option></option>
-				{% for values in el[1] %}
-				<option><a href="#{{ values[0] }}">{{ values[1] }}</a></option>
-				{% endfor %}
-			</select>
-		</div>
-		<br>
-		{% endfor %}
-		<br>
-		<div class="keyword">
-			<input type="text" name="keyword" placeholder="Search by keyword">
-		</div>
-		<br><br>
-		<button type="submit" class="btn btn-default">Search</button>
-	</form>
+	<div class="s009">
+		<form method="POST" action="{{ url_for('customfetch') }}">
+			<div class="inner-form">
+				<div class="basic-search">
+					<div class="input-field">
+						<input type="text" name="keyword" placeholder="Search by keyword">
+					</div>
+				</div>
+				<div class="advance-search">
+					{% for el in forms_data %}
+					<br>
+						<!-- START SELECT INPUT -->
+						<div class="{{ el[0] }}">
+							<input type="text" id="{{ el[0] }}Input" onkeyup="myFunction('{{ el[0] }}')"
+								placeholder="Search a {{ el[0] }}" class="form-control">
+							<select id="{{ el[0] }}Select" name="{{ el[0] }}" class="custom-select">
+								<option></option>
+								{% for values in el[1] %}
+									<option><a href="#{{ values[0] }}">{{ values[1] }}</a></option>
+								{% endfor %}
+							</select>
+						</div>
+						<!-- END SELECT INPUT -->
+					{% endfor %}
+					<br><br>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
 	<script>
 		function myFunction(id_name) {
 			var input, filter, select, option, a, i, txtValue;
@@ -45,6 +49,5 @@
 			}
 		}
 	</script>
-</body>
 
-</html>
+	{% endblock %}
