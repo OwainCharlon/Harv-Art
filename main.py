@@ -97,18 +97,17 @@ def deleteContent(contentType, contentId):
     db.session.commit()
 
     return jsonify("Content well updated.")
-
+    
 @app.route("/getComments/<masterpieceId>")
 def getComments(masterpieceId):
     
-    comments = db.session.query(Comment).filter(Comment.masterpiece_id==masterpieceId).all()
+    comments = db.session.query(Comment, User.username).join(User, Comment.user_id == User.id).filter(Comment.masterpiece_id==masterpieceId).all()
     if comments:
-        commentArray = [ str(comment.content) + ',' + str(comment.date) for comment in comments ]
+        commentArray = [ str(comment[0].content) + ',' + str(comment[0].date) + ',' + str(comment[1]) for comment in comments ]
     else:
         commentArray = ["Aucun commentaire"]
     
     return jsonify(commentArray)
-
 @app.route("/admin")
 def admin():
     
@@ -211,6 +210,6 @@ def keyword():
 #                             })
 #     content = json.loads(response.data)
 #     return content
-    
+
 if __name__ == "__main__":
     app.run(debug=True)

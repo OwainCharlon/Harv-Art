@@ -158,8 +158,9 @@ function fetchImgInfo(imgId) {
                     comments = resultat.responseJSON
                     for (const element of comments) {
                         elements = element.split(',')
-                        $('.fsComment').append("<div>" + elements[0] + "</div>")
-                        $('.fsComment').append("<div>" + elements[1] + "</div>")
+                        $('.fsComment').append("<div>" + elements[0] + "</div>");
+                        $('.fsComment').append("<div>" + elements[1] + "</div>");
+                        $('.fsComment').append("<div>" + elements[2] + "</div>");
                     }
                     //comments.forEach(element => $('.fsComment').append("<div>" + element + "</div>"));
                 }
