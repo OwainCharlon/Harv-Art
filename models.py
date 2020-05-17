@@ -42,13 +42,12 @@ class Comment(db.Model):
     content = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime, nullable=False)
     masterpiece_id = db.Column(db.Integer, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey(
-        User.id, ondelete='CASCADE'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id, ondelete='CASCADE'), nullable=False)
 
     def __init__(self, content, date, masterpiece_id, user_id):
         self.content = content
         self.date = date
-        self.masterpiece_id
+        self.masterpiece_id = masterpiece_id
         self.user_id = user_id
 
     def __repr__(self):
@@ -60,8 +59,7 @@ class History(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, nullable=False)
     masterpiece_id = db.Column(db.Integer, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey(
-        User.id, ondelete='CASCADE'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id, ondelete='CASCADE'), nullable=False)
 
     def __init__(self, date, masterpiece_id, user_id):
         self.date = date
