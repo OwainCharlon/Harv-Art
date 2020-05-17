@@ -1,4 +1,5 @@
 {% extends "base.html" %} {% block content %}
+
 <body>
 
     <div class="s009">
@@ -17,27 +18,27 @@
                         <div class="input-field">
                             <div class="input-select">
                                 <select data-trigger="" name="choices-single-defaul">
-                    <option placeholder="" value="">Catégories</option>
-                    <option>Peinture</option>
-                    <option>Image</option>
-                  </select>
+                                    <option placeholder="" value="">Catégories</option>
+                                    <option>Peinture</option>
+                                    <option>Image</option>
+                                </select>
                             </div>
                         </div>
                         <div class="input-field">
                             <div class="input-select">
                                 <select data-trigger="" name="choices-single-defaul">
-                    <option placeholder="" value="">Taille</option>
-                    <option>Petite</option>
-                    <option>Moyenne</option>
-                    <option>Grandes</option>
-                  </select>
+                                    <option placeholder="" value="">Taille</option>
+                                    <option>Petite</option>
+                                    <option>Moyenne</option>
+                                    <option>Grandes</option>
+                                </select>
                             </div>
                         </div>
                         <div class="input-field">
                             <div class="input-select">
                                 <select data-trigger="" name="choices-single-defaul">
-                    <option placeholder="" value="">Choix 3</option>
-                  </select>
+                                    <option placeholder="" value="">Choix 3</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -75,7 +76,7 @@
             itemSelectText: '',
             removeItemButton: true,
         });
-        deleteBtn.addEventListener("click", function(e) {
+        deleteBtn.addEventListener("click", function (e) {
             e.preventDefault()
             const deleteAll = document.querySelectorAll('.choices__button')
             for (let i = 0; i < deleteAll.length; i++) {
@@ -83,5 +84,5 @@
             }
         });
     </script>
-    
-{% endblock %}
+
+    {% endblock %}

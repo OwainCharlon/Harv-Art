@@ -9,7 +9,8 @@
         {% for favorite in favorites %}
         <div class="favItem" id={{ favorite.id }}>
             <div class="favImg">
-                <div class="like liked" onclick="toggleLikeFav()" style="background-image: url({{ favorite.url }});"></div>
+                <div class="like liked" onclick="toggleLikeFav()" style="background-image: url({{ favorite.url }});">
+                </div>
             </div>
             <div class="favInfo">
                 <div class="favItemTitle">{{ favorite.title }}</div>
