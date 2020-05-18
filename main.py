@@ -85,7 +85,7 @@ def addContent(contentType, actualmasterpieceId, commentContent=None):
         }
         eval(requests[int(contentType)].format(content=str(commentContent), masterpieceId=int(actualmasterpieceId)))
         db.session.commit()
-        
+    
     else:
         pass
     #Redirection vers 404
