@@ -81,20 +81,28 @@ def history():
 def addContent(contentType, actualmasterpieceId, commentContent=None):
 
     if session['userId']:
-        if request.args.get("commentContent"):
-            commentContent = request.args.get("commentContent")
         
-        requests = {
-            1: """db.session.add(Favorite({masterpieceId}, session['userId']))""",
-            2: """db.session.add(History(datetime.datetime.today().strftime('%Y-%m-%d'),{masterpieceId}, session['userId']))""",
-            3: """db.session.add(Comment("{content}", datetime.datetime.today().strftime('%Y-%m-%d'), {masterpieceId}, session['userId']))""",
+        alreadyExists = {
+            1: """db.session.query(Favorite).filter(Favorite.id == {masterpieceId}).first()""",
+            2: """db.session.query(History).filter(History.id == {masterpieceId}).first()""",
         }
-        eval(requests[int(contentType)].format(content=str(commentContent), masterpieceId=int(actualmasterpieceId)))
-        db.session.commit()
-    
+        
+        isExisting = eval(alreadyExists[int(contentType)].format(masterpieceId=int(actualmasterpieceId)))
+        #IS existing doesnt work
+        if isExisting is None:
+            if request.args.get("commentContent"):
+                commentContent = request.args.get("commentContent")
+        
+            requests = {
+                1: """db.session.add(Favorite({masterpieceId}, session['userId']))""",
+                2: """db.session.add(History(datetime.datetime.today().strftime('%Y-%m-%d'),{masterpieceId}, session['userId']))""",
+                3: """db.session.add(Comment("{content}", datetime.datetime.today().strftime('%Y-%m-%d'), {masterpieceId}, session['userId']))""",
+            }
+            eval(requests[int(contentType)].format(content=str(commentContent), masterpieceId=int(actualmasterpieceId)))
+            db.session.commit()
     else:
         pass
-    #Redirection vers 404
+
     return jsonify("Content well updated.")
 
 
@@ -121,7 +129,7 @@ def getComments(masterpieceId):
     if comments:
         commentArray = [str(comment[0].content) + ',' + str(comment[0].date) + ',' + str(comment[1]) for comment in comments]
     else:
-        commentArray = ["Aucun commentaire"]
+        commentArray = ["Aucun commentaire" + ',' + "" + ',' + ""]
 
     return jsonify(commentArray)
 
