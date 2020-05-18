@@ -33,6 +33,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('favorites') }}">Favoris</a>
                 </li>
+                {% endif %} {% if session['userId'] %}
+                <li class="nav-item">
+                    <a class='nav-link signIn' href="{{ url_for('history') }}">Historique</a>
+                </li>
                 {% endif %} {% if not session['userId'] %}
                 <li class="nav-item">
                     <a class='nav-link signIn' onclick="signIn()">Connexion</a>

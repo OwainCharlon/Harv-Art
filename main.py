@@ -69,6 +69,12 @@ def favorites():
 
     return render_template("favorites.html", favorites=favorites)
 
+@app.route("/history")
+def history():
+    history = db.session.query(History).filter(
+        User.id == session["userId"]).all()
+
+    return render_template("history.html", history=history)
 
 @app.route("/addContent/<contentType>/<actualmasterpieceId>")
 @app.route("/addContent/<contentType>/<actualmasterpieceId>/<commentContent>")
