@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block content %}
+
+<body>
+    <div class="fav">
+        <h1 class="favTitle">Votre Historique</h1>
+    </div>
+
+    <section class="listFav container">
+        {% for histo in history %}
+        <div class="favItem" id={{ histo.masterpiece_id }}>
+            <div class="dailyImg" onclick="imgFS(this.id)">
+            </div>
+            <div class="dailyDesc">
+                <div class="dailyTitle"></div>
+                <p></p>
+            </div>
+        </div>
+        {% endfor %}
+        <script src="{{ url_for('static', filename='js/favorites.js') }}"></script>
+    </section>
+    {% endblock %}
