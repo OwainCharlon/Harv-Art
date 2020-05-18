@@ -3,14 +3,6 @@
 <body>
     {% if content.records %}
     <div class="search">
-        <div class="searchHead">
-            <form method="post" action="{{ url_for('page') }}">
-                <div class="page">
-                    <label for="page">Sur quelle page veux-tu te rendre ? (entre 1 et {{ content.info.pages }} )</label>
-                    <input type="number" name="page" placeholder="page" value="{{ content.info.page }}" min="1" max="{{ content.info.pages }}">
-                </div>
-            </form>
-        </div>
         <div class="searchResult">
             {% for record in content.records %} {% if record.images %}
             <div class="imgContainer">
@@ -19,6 +11,15 @@
             {% endif %} {% endfor %} {% else %}
             <p>There isn't any masterpiece, you may want to change your filters</p>
             {% endif %}
+        </div>
+        <div class="searchHead">
+            <form method="post" action="{{ url_for('page') }}">
+                <div class="page">
+                    <label for="page">Sur quelle page veux-tu te rendre ? (entre 1 et {{ content.info.pages }} )</label>
+                    <input type="number" name="page" placeholder="page" value="{{ content.info.page }}" min="1" max="{{ content.info.pages }}">
+                    <button type="submit" class="btn btn-primary pageBtn">M'y rendre</button>
+                </div>
+            </form>
         </div>
     </div>
     {% endblock %}

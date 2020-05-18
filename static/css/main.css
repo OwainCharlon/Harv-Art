@@ -274,7 +274,7 @@ a {
 
 .comText {
     font-family: 'Parisienne', cursive;
-    font-size: 1em;
+    font-size: 1.7em;
     margin: 5px;
     margin-left: 10px;
     margin-right: 10px;
@@ -288,14 +288,14 @@ a {
 }
 
 .search {
-    margin-top: 100px;
+    margin-bottom: 100px;
 }
 
 .searchResult {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    margin-top: 80px;
-    margin-bottom: 80px;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .imgContainer {
@@ -310,4 +310,8 @@ a {
     background-size: contain;
     background-repeat: no-repeat;
     margin: 20px;
+}
+
+.pageBtn {
+    margin-left: 30px;
 }
