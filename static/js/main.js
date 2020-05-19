@@ -154,7 +154,7 @@ function fetchImgInfo(imgId) {
                     console.log(resultat.responseJSON);
                     comments = resultat.responseJSON;
                     for (const element of comments) {
-                        elements = element.split(',');
+                        elements = element.split('@@');
                         $('.fsComment').append("<div class=\"comment\"><div class=\"comAuthor\">" + elements[2] + " - " + elements[1] + "</div><div class=\"comText\">" + elements[0] + "</div></div>");
                     }
                 }

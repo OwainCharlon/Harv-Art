@@ -82,14 +82,13 @@ def addContent(contentType, actualmasterpieceId, commentContent=None):
 
     if session['userId']:
         
-        alreadyExists = {
-            1: """db.session.query(Favorite).filter(Favorite.id == {masterpieceId}).first()""",
-            2: """db.session.query(History).filter(History.id == {masterpieceId}).first()""",
+        isExisting = {
+            1: """db.session.query(Favorite).filter(Favorite.masterpiece_id == {masterpieceId}).filter(Favorite.user_id == session['userId']).first()""",
+            2: """db.session.query(History).filter(History.masterpiece_id == {masterpieceId}).filter(History.user_id == session['userId']).first()""",
+            3: """None"""
         }
-        
-        isExisting = eval(alreadyExists[int(contentType)].format(masterpieceId=int(actualmasterpieceId)))
-        #IS existing doesnt work
-        if isExisting is None:
+
+        if eval(isExisting[int(contentType)].format(masterpieceId=int(actualmasterpieceId))) is None:
             if request.args.get("commentContent"):
                 commentContent = request.args.get("commentContent")
         
@@ -127,9 +126,9 @@ def getComments(masterpieceId):
     comments = db.session.query(Comment, User.username).join(
         User, Comment.user_id == User.id).filter(Comment.masterpiece_id == masterpieceId).all()
     if comments:
-        commentArray = [str(comment[0].content) + ',' + str(comment[0].date) + ',' + str(comment[1]) for comment in comments]
+        commentArray = [str(comment[0].content) + '@@' + str(comment[0].date) + '@@' + str(comment[1]) for comment in comments]
     else:
-        commentArray = ["Aucun commentaire" + ',' + "" + ',' + ""]
+        commentArray = ["Aucun commentaire" + '@@' + "" + '@@' + ""]
 
     return jsonify(commentArray)
 
@@ -214,6 +213,17 @@ def page():
     content = json.loads(response.data)
     return render_template('art.html', content=content)
 
-
+@app.route("/test")
+def test():
+    alreadyExists = {
+            1: """db.session.query(Favorite).filter(Favorite.masterpiece_id == 229759 ).filter(Favorite.user_id == session['userId']).first()""",
+            2: """db.session.query(History).filter(History.id == ).first()""",
+            3: """None"""
+        }
+        
+    isExisting = eval(alreadyExists[3])
+        
+    return render_template('test.html', isExisting=isExisting)
+    
 if __name__ == "__main__":
     app.run(debug=True)
