@@ -123,12 +123,27 @@ a {
 
 /* Page Favoris */
 
-.fav {
+.favImg {
+    float: left;
+    height: 500px;
+    width: 40%;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-left: 5%;
+    margin-bottom: 80px;
+    position: relative;
+}
+
+.favDesc {
     display: flex;
-    height: 80px;
+    float: right;
+    height: 500px;
+    width: 40%;
+    margin-right: 5%;
     justify-content: center;
     align-items: center;
-    margin-bottom: 100px;
+    margin-bottom: 80px;
 }
 
 .favTitle {
@@ -145,17 +160,6 @@ a {
     margin-bottom: 50px;
 }
 
-.favImg {
-    display: flex;
-    float: left;
-    height: 500px;
-    width: 45%;
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    position: relative;
-}
-
 .favInfo {
     display: grid;
     float: right;
@@ -163,14 +167,8 @@ a {
     width: 45%;
 }
 
-.favItemTitle,
-.favAuthor,
-.favDesc {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
+
+/* Overlay on click */
 
 .bigImg {
     display: none;

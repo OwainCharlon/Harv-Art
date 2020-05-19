@@ -8,10 +8,10 @@
     <section class="listFav container">
         {% for histo in history %}
         <div class="favItem" id={{ histo.masterpiece_id }}>
-            <div class="dailyImg" onclick="imgFS(this.id)">
+            <div class="favImg" id={{ histo.masterpiece_id }} onclick="imgFS(this.id)">
             </div>
-            <div class="dailyDesc">
-                <div class="dailyTitle"></div>
+            <div class="favDesc">
+                <div class="favTitle"></div>
                 <p></p>
             </div>
         </div>
