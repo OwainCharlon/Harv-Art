@@ -111,17 +111,17 @@ def deleteContent(contentType, contentId):
 
     requests = {
         1: "db.session.query(User).filter(User.id=={}).delete()",
-        2: "db.session.query(Favorite).filter(Favorite.id=={}).delete()",
+        2: "db.session.query(Favorite).filter(Favorite.masterpiece_id=={}).delete()",
         3: "db.session.query(History).filter(History.id=={}).delete()",
         4: "db.session.query(Comment).filter(Comment.id=={}).delete()",
     }
-    eval(requests[int(contentType)].format(contentId))
+    eval(requests[int(contentType)].format(int(contentId)))
     db.session.commit()
 
     return jsonify("Content well updated.")
 
 
-@app.route("/getComments/<masterpieceId>")
+@app.route("/getComments/<masterpieceId>") 
 def getComments(masterpieceId):
 
     comments = db.session.query(Comment, User.username).join(
@@ -130,8 +130,14 @@ def getComments(masterpieceId):
         commentArray = [str(comment[0].content) + '@@' + str(comment[0].date) + '@@' + str(comment[1]) for comment in comments]
     else:
         commentArray = ["Aucun commentaire" + '@@' + "" + '@@' + ""]
-
     return jsonify(commentArray)
+
+
+@app.route("/isFavorite/<masterpieceId>")
+def isFavorite(masterpieceId):
+    
+    isFavorite = "Not in favorite" if db.session.query(Favorite).filter(Favorite.masterpiece_id == masterpieceId).filter(Favorite.user_id == session['userId']).first() is None else "In favorite"
+    return jsonify(isFavorite)
 
 @app.route("/admin")
 def admin():

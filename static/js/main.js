@@ -6,11 +6,6 @@ var queryString = $.param({
     hasimage: "1"
 });
 
-function toggleLike() {
-    $(".fsLike").toggleClass("liked");
-    $(".fsLike").toggleClass("notLiked");
-}
-
 // FETCH + CARROUSSEL
 let data;
 var images = new Array();
@@ -194,21 +189,56 @@ function fetchImgInfo(imgId) {
         });
     });
 
-    $('#addFavorite').click(function() {
-        var addFavorite = jQuery.ajax({
+    $("#fsLike").click(function (){
+        var isFavorite = jQuery.ajax({
             type: 'GET',
-            url: window.origin + '/addContent' + '/' + 1 + '/' + imgId,
+            url: window.origin + '/isFavorite' + '/' + imgId,
             dataType: 'JSON',
-
+    
             success: function(code_html, statut) {
-                console.log("Well added to your favorite.");
+                console.log("Favorite tested with success.");
             },
-
+    
             error: function(resultat, statut, erreur) {
-                console.log("Can not add it to your favorite.");
+                console.log("Favorite not tested with success.");
             },
-            complete: function(resultat, statut) {}
-        });
+            complete: function(resultat, statut) {
+                if (resultat.responseJSON == "Not in favorite"){
+                    $(".fsLike").toggleClass("liked");
+                    var addFavorite = jQuery.ajax({
+                        type: 'GET',
+                        url: window.origin + '/addContent' + '/' + 1 + '/' + imgId,
+                        dataType: 'JSON',
+            
+                        success: function(code_html, statut) {
+                            console.log("Well added to your favorite.");
+                        },
+            
+                        error: function(resultat, statut, erreur) {
+                            console.log("Can not add it to your favorite.");
+                        },
+                        complete: function(resultat, statut) {}
+                    });
+                }
+                else if (resultat.responseJSON == "In favorite"){
+                    $(".fsLike").toggleClass("notLiked");
+                    var deleteFavorite = jQuery.ajax({
+                        type: 'GET',
+                        url: window.origin + '/deleteContent' + '/' + 2 + '/' + imgId,
+                        dataType: 'JSON',
+            
+                        success: function(code_html, statut) {
+                            console.log("Well delete from your favorite.");
+                        },
+            
+                        error: function(resultat, statut, erreur) {
+                            console.log("Can not delete it from your favorite.");
+                        },
+                        complete: function(resultat, statut) {}
+                    });
+                }
+            }
+        })
     });
 }
 
