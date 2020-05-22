@@ -65,9 +65,16 @@ def signup():
 
 @app.route("/favorites")
 def favorites():
-    favorites = db.session.query(Favorite).filter(
+    favoritesList = db.session.query(Favorite).filter(
         User.id == session["userId"]).all()
-
+    
+    for favorite in favoritesList:
+        favorites = []
+        url = "https://api.harvardartmuseums.org/object/{favoriteMasterpieceId}?apikey=b6782a10-8def-11ea-877a-6df674fda82b".format(favoriteMasterpieceId = favorite.masterpiece_id)
+        response = http.request('GET', url)
+        content = json.loads(response.data)
+        favorites.append([ content["objectid"], content["images"][0]["baseimageurl"], content["title"], content["people"][0]["name"] if "people" in content.keys() else "Unknown artist"])
+        
     return render_template("favorites.html", favorites=favorites)
 
 @app.route("/history")
