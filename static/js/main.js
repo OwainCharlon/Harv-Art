@@ -189,48 +189,49 @@ function fetchImgInfo(imgId) {
         });
     });
 
-    $("#fsLike").click(function (){
+    $("#fsLike").click(function() {
         var isFavorite = jQuery.ajax({
             type: 'GET',
             url: window.origin + '/isFavorite' + '/' + imgId,
             dataType: 'JSON',
-    
+
             success: function(code_html, statut) {
                 console.log("Favorite tested with success.");
             },
-    
+
             error: function(resultat, statut, erreur) {
                 console.log("Favorite not tested with success.");
             },
             complete: function(resultat, statut) {
-                if (resultat.responseJSON == "Not in favorite"){
+                if (resultat.responseJSON == "Not in favorite") {
                     $(".fsLike").toggleClass("liked");
+                    $(".fsLike").toggleClass("notLiked");
                     var addFavorite = jQuery.ajax({
                         type: 'GET',
                         url: window.origin + '/addContent' + '/' + 1 + '/' + imgId,
                         dataType: 'JSON',
-            
+
                         success: function(code_html, statut) {
                             console.log("Well added to your favorite.");
                         },
-            
+
                         error: function(resultat, statut, erreur) {
                             console.log("Can not add it to your favorite.");
                         },
                         complete: function(resultat, statut) {}
                     });
-                }
-                else if (resultat.responseJSON == "In favorite"){
+                } else if (resultat.responseJSON == "In favorite") {
+                    $(".fsLike").toggleClass("liked");
                     $(".fsLike").toggleClass("notLiked");
                     var deleteFavorite = jQuery.ajax({
                         type: 'GET',
                         url: window.origin + '/deleteContent' + '/' + 2 + '/' + imgId,
                         dataType: 'JSON',
-            
+
                         success: function(code_html, statut) {
                             console.log("Well delete from your favorite.");
                         },
-            
+
                         error: function(resultat, statut, erreur) {
                             console.log("Can not delete it from your favorite.");
                         },
@@ -249,6 +250,3 @@ function imgFS(imgId) {
     $('.bigImg').css('display', 'grid');
     fetchImgInfo(imgId);
 }
-
-
-// ATTENTION VIDER CONTENU HTML QUAND OVERLAY CLICKé
