@@ -147,6 +147,8 @@ a {
 }
 
 .favTitle {
+    display: flex;
+    justify-content: center;
     margin-top: 100px;
     font-family: "Permanent Marker", cursive;
     color: black;
@@ -251,6 +253,8 @@ a {
     width: 100%;
     color: white;
     text-align: center;
+    z-index: 9996;
+    transform: translateY(50px);
 }
 
 
