@@ -6,15 +6,17 @@
     </div>
 
     <section class="listFav container">
-        {% for i in favorites[] %}
-        <div class="favItem" id="{{ favorites[i][0] }}">
+        {{ favorites }}
+        {% for favorite in favorites %}
+        <div class="favItem" id={{ favorite[0] }}>
             <div class="favImg">
-                <div class="like liked" onclick="toggleLikeFav()" style="background-image: url({{ favorites[i][1] }});"></div>
+                {{ favorite[1] }}
+                <div class="like liked" onclick="toggleLikeFav()" style="background-image: url({{ favorite[1] }});"></div>
                 </div>
             </div>
             <div class="favInfo">
-                <div class="favItemTitle">{{ favorites[i][2] }}</div>
-                <div class="favAuthor">{{ favorites[i][3] }}</div>
+                <div class="favItemTitle">{{ favorite[2] }}</div>
+                <div class="favAuthor">{{ favorite[3] }}</div>
             </div>
         </div>
         {% endfor %}
