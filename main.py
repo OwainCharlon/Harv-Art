@@ -77,10 +77,18 @@ def favorites():
         
     return render_template("favorites.html", favorites=favorites)
 
+
 @app.route("/history")
 def history():
-    history = db.session.query(History).filter(
+    historyList = db.session.query(History).filter(
         User.id == session["userId"]).all()
+    history = []
+    
+    for item in historyList:
+        url = "https://api.harvardartmuseums.org/object/{historyMasterpieceId}?apikey=b6782a10-8def-11ea-877a-6df674fda82b".format(historyMasterpieceId = item.masterpiece_id)
+        response = http.request('GET', url)
+        content = json.loads(response.data)
+        history.append([ content["objectid"], "'" + content["images"][0]["baseimageurl"] + "'", content["title"], content["people"][0]["name"] if "people" in content.keys() else "Unknown artist"])
 
     return render_template("history.html", history=history)
 
@@ -127,6 +135,20 @@ def deleteContent(contentType, contentId):
 
     return jsonify("Content well updated.")
 
+
+@app.route("/cleanFavorite")
+def cleanFavorite():
+    
+    db.session.query(Favorite).filter(Favorite.user_id = session['userId']).delete()
+    db.session.commit()
+    return jsonify("Favorites well cleaned.")
+
+@app.route("/cleanHistory")
+def cleanHistory():
+    
+    db.session.query(History).filter(History.user_id = session['userId']).delete()
+    db.session.commit()
+    return jsonify("History well cleaned.")
 
 @app.route("/getComments/<masterpieceId>") 
 def getComments(masterpieceId):
