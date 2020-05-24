@@ -34,9 +34,8 @@ def homepage():
 
 @app.route("/logout")
 def logout():
-    # Delete the userId of the current user session
-    session.pop("userId", None)
-
+    session.pop("userId", None) # Delete the userId of the current user session
+    
     return redirect(url_for("homepage"))
 
 
@@ -73,7 +72,7 @@ def favorites():
         url = "https://api.harvardartmuseums.org/object/{favoriteMasterpieceId}?apikey=b6782a10-8def-11ea-877a-6df674fda82b".format(favoriteMasterpieceId = favorite.masterpiece_id)
         response = http.request('GET', url)
         content = json.loads(response.data)
-        favorites.append([ content["objectid"], "'" + content["images"][0]["baseimageurl"] + "'", content["title"], content["people"][0]["name"] if "people" in content.keys() else "Unknown artist"])
+        favorites.append([ content["objectid"], '"' + content["images"][0]["baseimageurl"] + '"', content["title"], content["people"][0]["name"] if "people" in content.keys() else "Unknown artist"])
         
     return render_template("favorites.html", favorites=favorites)
 
@@ -139,14 +138,14 @@ def deleteContent(contentType, contentId):
 @app.route("/cleanFavorite")
 def cleanFavorite():
     
-    db.session.query(Favorite).filter(Favorite.user_id = session['userId']).delete()
+    db.session.query(Favorite).filter(Favorite.user_id == session['userId']).delete()
     db.session.commit()
     return jsonify("Favorites well cleaned.")
 
 @app.route("/cleanHistory")
 def cleanHistory():
     
-    db.session.query(History).filter(History.user_id = session['userId']).delete()
+    db.session.query(History).filter(History.user_id == session['userId']).delete()
     db.session.commit()
     return jsonify("History well cleaned.")
 
@@ -170,7 +169,6 @@ def isFavorite(masterpieceId):
 
 @app.route("/admin")
 def admin():
-
     users = db.session.query(User).all()
     comments = db.session.query(Comment).all()
 
@@ -249,17 +247,5 @@ def page():
     content = json.loads(response.data)
     return render_template('art.html', content=content)
 
-@app.route("/test")
-def test():
-    alreadyExists = {
-            1: """db.session.query(Favorite).filter(Favorite.masterpiece_id == 229759 ).filter(Favorite.user_id == session['userId']).first()""",
-            2: """db.session.query(History).filter(History.id == ).first()""",
-            3: """None"""
-        }
-        
-    isExisting = eval(alreadyExists[3])
-        
-    return render_template('test.html', isExisting=isExisting)
-    
 if __name__ == "__main__":
     app.run(debug=True)

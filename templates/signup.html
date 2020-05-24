@@ -2,9 +2,8 @@
 
 <body>
     {% with messages = get_flashed_messages() %} {% if messages %} {% for msg in messages %}
-    <p>{{msg}}</p>
+    <p class="msg alert">{{msg}}</p>
     {% endfor %} {% endif %} {% endwith %}
-    <h1 class="text-center">HARVART</h1>
     <div class="container">
         <div class="row">
             <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">

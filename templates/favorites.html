@@ -3,23 +3,17 @@
 <body>
     <div class="fav">
         <h1 class="favTitle">Vos Favoris</h1>
+        {% if favorites %}
+        <a href="{{ url_for('cleanHistory') }}">Supprimer tout vos favoris</a>
+        {% endif %}
     </div>
-
-    <section class="listFav container">
-        {{ favorites }}
+        {% if favorites %}
         {% for favorite in favorites %}
-        <div class="favItem" id={{ favorite[0] }}>
-            <div class="favImg">
-                {{ favorite[1] }}
-                <div class="like liked" onclick="toggleLikeFav()" style="background-image: url({{ favorite[1] }});"></div>
-                </div>
+            <div class="imgContainer">
+                <div class="imgItem" id="{{ favorite[0] }}" onclick="imgFS(this.id)" style="background-image: url({{ favorite[1] }});"></div>
             </div>
-            <div class="favInfo">
-                <div class="favItemTitle">{{ favorite[2] }}</div>
-                <div class="favAuthor">{{ favorite[3] }}</div>
-            </div>
-        </div>
         {% endfor %}
-
-    </section>
+        {% else %}
+            <p>Aucun favoris.</p>
+        {% endif %}
     {% endblock %}

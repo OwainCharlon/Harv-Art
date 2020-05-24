@@ -17,32 +17,31 @@ create table favorite
 (
 id Integer Not Null auto_increment,
 masterpiece_id Integer Not Null,
-date Date Not Null,
 user_id Integer Not Null,
 constraint favorite_pk primary key(id),
 constraint favorite_fk foreign key(user_id)
 references user(id)
 );
 
-create table history
-(
-id Integer Not Null auto_increment,
-masterpiece_id Integer Not Null,
-date Date Not Null,
-user_id Integer Not Null,
-constraint history_pk primary key(id),
-constraint history_fk foreign key(user_id)
-references user(id)
-);
-
 create table comment
 (
 id Integer Not Null auto_increment,
-masterpiece_id Integer Not Null,
 content Text Not Null,
 date Date Not Null,
+masterpiece_id Integer Not Null,
 user_id Integer Not Null,
 constraint comment_pk primary key(id),
 constraint comment_fk foreign key(user_id)
+references user(id)
+);
+
+create table history
+(
+id Integer Not Null auto_increment,
+date Date Not Null,
+masterpiece_id Integer Not Null,
+user_id Integer Not Null,
+constraint history_pk primary key(id),
+constraint history_fk foreign key(user_id)
 references user(id)
 );

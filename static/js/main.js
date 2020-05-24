@@ -26,7 +26,7 @@ $.getJSON(apiEndpointBaseURL + "?" + queryString, function(data) {
         return 0;
     }
     $(document).ready(function() {
-        console.log(data);
+        //console.log(data);
 
         // Tableau pour carrousel
         while (typeof data.records[img1].images[0] === 'undefined') { img1++; }
