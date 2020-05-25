@@ -2,7 +2,7 @@ var apiEndpointBaseURL = "https://api.harvardartmuseums.org/object";
 var queryString = $.param({
     apikey: "b6782a10-8def-11ea-877a-6df674fda82b",
     classification: "Paintings",
-    size: "15",
+    size: "50",
     hasimage: "1"
 });
 
@@ -26,7 +26,7 @@ $.getJSON(apiEndpointBaseURL + "?" + queryString, function(data) {
         return 0;
     }
     $(document).ready(function() {
-        //console.log(data);
+        // console.log(data);
 
         // Tableau pour carrousel
         while (typeof data.records[img1].images[0] === 'undefined') { img1++; }
@@ -45,15 +45,15 @@ $.getJSON(apiEndpointBaseURL + "?" + queryString, function(data) {
         images.push("url(\"" + data.records[img5].images[0].baseimageurl);
         $('.carrousel').css("background-image", "url(\"" + data.records[img5].images[0].baseimageurl + "\"\)");
         $('.carrousel').fadeOut(2500);
-        //console.log(images);
+        // console.log(images);
 
 
         // Tableau pour Daily Image
 
-        var randomImage = Math.floor(Math.random() * 10) + 5;
-        while (typeof data.records[randomImage].images[0] === 'undefined' && typeof data.records[randomImage].labeltext === 'undefined') {
+        var randomImage = Math.floor(Math.random() * 45) + 5;
+        while (typeof data.records[randomImage].images[0] === 'undefined' && typeof data.records[randomImage].images === 'undefined') {
             randomImage++;
-            if (randomImage > 15) { randomImage = 0; }
+            if (randomImage > 50) { randomImage = 0; }
         }
         var randomId = data.records[randomImage].id
         var randomImgUrl = "url(\"" + data.records[randomImage].images[0].baseimageurl + "\"\)";
