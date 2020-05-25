@@ -2,20 +2,19 @@
 
 <body>
     <div class="fav">
-        <h1 class="favTitle">Votre Historique</h1>
-    </div>
 
-    <section class="listFav container">
-        {% for histo in history %}
-        <div class="favItem" id={{ histo.masterpiece_id }}>
-            <div class="favImg" id={{ histo.masterpiece_id }} onclick="imgFS(this.id)">
+        <h1 class="favTitle">Votre Historique</h1>
+        {% if history %}
+        <a href="{{ url_for('cleanHistory') }}">Effacer votre historique</a>
+        {% endif %}
+    </div>
+        {% if history %}
+        {% for item in history %}
+            <div class="imgContainer">
+                <div class="imgItem" id="{{ item[0] }}" onclick="imgFS(this.id)" style="background-image: url({{ item[1] }});"></div>
             </div>
-            <div class="favDesc">
-                <div class="favTitle"></div>
-                <p></p>
-            </div>
-        </div>
         {% endfor %}
-        <script src="{{ url_for('static', filename='js/favorites.js') }}"></script>
-    </section>
+        {% else %}
+            <p>Historique vide.</p>
+        {% endif %}
     {% endblock %}
